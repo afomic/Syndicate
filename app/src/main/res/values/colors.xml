@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#283747</color>
+    <color name="colorPrimaryDark">#1C2833</color>
+    <color name="colorAccent">#283747</color>
+    <color name="colorWhite">#FFF</color>
+    <color name="colorBlack">#FF000000</color>
+    <color name="colorBlackBackground">#101010</color>
+    <color name="darkThemePrimaryColor">#C0191919</color>
+    <color name="darkThemeNavigationBarColor">#FF60605f</color>
+    <color name="darkThemePrimaryColorDark">#0f0f0f</color>
+    <color name="darkThemeSentChatMessageBackground">#0a6cd9</color>
+    <color name="darkThemeReceivedChatMessageBackground">#0d1620</color>
+</resources>

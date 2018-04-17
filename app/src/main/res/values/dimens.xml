@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="unread_message_count_text_padding">4dp</dimen>
+    <dimen name="unread_message_count_margin_right">8dp</dimen>
+    <dimen name="content_text_padding">4dp</dimen>
+    <dimen name="big_text_size">18sp</dimen>
+    <dimen name="layout_padding">4dp</dimen>
+    <dimen name="user_icon_image_height">60dp</dimen>
+    <dimen name="user_icon_image_weight">60dp</dimen>
+    <dimen name="user_icon_margin">4dp</dimen>
+    <dimen name="user_icon_padding">8dp</dimen>
+    <dimen name="send_button_padding">8dp</dimen>
+    <dimen name="login_container_marging">16dp</dimen>
+    <dimen name="login_content_padding">8dp</dimen>
+</resources>
