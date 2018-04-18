@@ -12,4 +12,6 @@
     <dimen name="send_button_padding">8dp</dimen>
     <dimen name="login_container_marging">16dp</dimen>
     <dimen name="login_content_padding">8dp</dimen>
+    <dimen name="sign_up_content_padding">16dp</dimen>
+    <dimen name="button_width">200dp</dimen>
 </resources>

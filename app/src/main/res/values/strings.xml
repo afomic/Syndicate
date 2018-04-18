@@ -3,4 +3,11 @@
     <string name="chat_entry_title">Type message</string>
     <string name="email_edit_text_hint">Email</string>
     <string name="password_edit_text_hint">Password</string>
+    <string name="edit_text_first_name_label">First Name</string>
+    <string name="edit_text_last_name_label">Last Name</string>
+    <string name="edit_text_email_label">Email</string>
+    <string name="edit_text_password_label">password</string>
+    <string name="button_sign_up_label">Sign Up</string>
+    <string name="button_log_in_label">Log In</string>
+    <string name="login_tittle">Login</string>
 </resources>
