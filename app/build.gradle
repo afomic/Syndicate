@@ -19,13 +19,14 @@ android {
 }
 
 dependencies {
-    def playServiceVersion='12.0.1'
-    def supportVersion='27.1.1'
-    def butterKnife='8.8.1'
-    def daggerVersion='2.15'
+    def playServiceVersion = '12.0.1'
+    def supportVersion = '27.1.1'
+    def butterKnife = '8.8.1'
+    def daggerVersion = '2.15'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:$supportVersion"
     implementation "com.google.firebase:firebase-auth:$playServiceVersion"
+    implementation "com.google.firebase:firebase-database:$playServiceVersion"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
