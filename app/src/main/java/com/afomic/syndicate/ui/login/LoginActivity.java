@@ -95,4 +95,10 @@ public class LoginActivity extends BaseActivity implements LoginView {
         mLoginPresenter.dropView();
         super.onDestroy();
     }
+
+    @Override
+    public void resetError() {
+        emailTextInputLayout.setErrorEnabled(false);
+        passwordTextInputLayout.setErrorEnabled(false);
+    }
 }

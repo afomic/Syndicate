@@ -7,6 +7,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -40,13 +41,15 @@ public class AuthManager {
         mFirebaseAuth.signOut();
         mPreferenceManager.setLoggedIn(false);
     }
-    public void createUser(User user,String email,String password,
+    public void createUser(final User user, String email, String password,
                            final AuthManagerCallback authManagerCallback){
         mFirebaseAuth.signInWithEmailAndPassword(email,password)
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         String id=authResult.getUser().getProviderId();
+                        user.setId(id);
+                        saveUser(user,authManagerCallback);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -55,6 +58,24 @@ public class AuthManager {
             }
         });
 
+    }
+    private void saveUser(User user, final AuthManagerCallback callback){
+        FirebaseDatabase.getInstance()
+                .getReference(Constants.USER_REF)
+                .child(user.getId())
+                .setValue(user)
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        callback.onFailure(e.getMessage());
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                mPreferenceManager.setLoggedIn(true);
+                callback.onSuccess();
+            }
+        });
     }
     public interface AuthManagerCallback{
         void onSuccess();

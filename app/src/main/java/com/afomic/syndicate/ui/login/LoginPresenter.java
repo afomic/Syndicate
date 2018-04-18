@@ -2,7 +2,6 @@ package com.afomic.syndicate.ui.login;
 
 import com.afomic.syndicate.base.BasePresenter;
 import com.afomic.syndicate.data.AuthManager;
-import com.afomic.syndicate.model.User;
 
 import javax.inject.Inject;
 
@@ -27,6 +26,7 @@ public class LoginPresenter implements BasePresenter<LoginView> {
 
     }
     public void loginUser(String email,String password ){
+        mLoginView.resetError();
         if(isValidEmail(email)&&isValidPassword(password)){
            mLoginView.showProgressBar();
            mAuthManager.login(email, password, new AuthManager.AuthManagerCallback() {

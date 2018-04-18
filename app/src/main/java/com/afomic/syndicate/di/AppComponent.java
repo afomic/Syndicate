@@ -4,6 +4,7 @@ package com.afomic.syndicate.di;
 
 import com.afomic.syndicate.ui.login.LoginActivity;
 import com.afomic.syndicate.ui.login.LoginPresenter;
+import com.afomic.syndicate.ui.signUp.SignUpActivity;
 import com.afomic.syndicate.ui.welcome.WelcomeActivity;
 import com.afomic.syndicate.ui.welcome.WelcomePresenter;
 
@@ -17,4 +18,5 @@ public interface AppComponent {
     WelcomePresenter getWelcomePresenter();
     void inject(WelcomeActivity activity);
     void inject(LoginActivity activity);
+    void inject(SignUpActivity activity);
 }

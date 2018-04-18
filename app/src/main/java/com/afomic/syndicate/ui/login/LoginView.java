@@ -7,5 +7,6 @@ public interface LoginView extends BaseView {
     void showSignUpView();
     void showEmailError(String error);
     void showPasswordError(String error);
+    void resetError();
 
 }

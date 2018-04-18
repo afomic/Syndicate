@@ -5,7 +5,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String status;
-    private String timeCreated;
+    private long timeCreated;
     private String pictureUrl;
     public User(){
 
@@ -43,11 +43,11 @@ public class User {
         this.status = status;
     }
 
-    public String getTimeCreated() {
+    public long getTimeCreated() {
         return timeCreated;
     }
 
-    public void setTimeCreated(String timeCreated) {
+    public void setTimeCreated(long timeCreated) {
         this.timeCreated = timeCreated;
     }
 
