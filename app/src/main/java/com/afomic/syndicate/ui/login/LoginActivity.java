@@ -3,7 +3,6 @@ package com.afomic.syndicate.ui.login;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -11,7 +10,7 @@ import android.widget.RelativeLayout;
 import com.afomic.syndicate.R;
 import com.afomic.syndicate.Syndicate;
 import com.afomic.syndicate.base.BaseActivity;
-import com.afomic.syndicate.ui.home.MainActivity;
+import com.afomic.syndicate.ui.main.MainActivity;
 import com.afomic.syndicate.ui.signUp.SignUpActivity;
 
 import javax.inject.Inject;

@@ -1,12 +1,11 @@
 package com.afomic.syndicate.ui.welcome;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.afomic.syndicate.Syndicate;
 import com.afomic.syndicate.base.BaseActivity;
-import com.afomic.syndicate.ui.home.MainActivity;
+import com.afomic.syndicate.ui.main.MainActivity;
 import com.afomic.syndicate.ui.login.LoginActivity;
 
 import javax.inject.Inject;

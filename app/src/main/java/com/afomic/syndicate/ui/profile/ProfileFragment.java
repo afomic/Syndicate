@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 
 import com.afomic.syndicate.R;
 import com.afomic.syndicate.base.BaseView;
+import com.afomic.syndicate.ui.main.MainPresenter;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,6 +20,8 @@ import butterknife.Unbinder;
 
 public class ProfileFragment extends Fragment implements BaseView {
     Unbinder mUnbinder;
+    @Inject
+    ProfilePresenter mProfilePresenter;
     public static ProfileFragment newInstance(){
         return new ProfileFragment();
     }
@@ -47,5 +52,11 @@ public class ProfileFragment extends Fragment implements BaseView {
     @Override
     public void hideProgressBar() {
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnbinder.unbind();
     }
 }

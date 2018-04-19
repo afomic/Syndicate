@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:name=".Syndicate"
         android:theme="@style/lightTheme">
-        <activity android:name=".ui.home.MainActivity"/>
+        <activity android:name=".ui.main.MainActivity"/>
         <activity android:name=".ui.welcome.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

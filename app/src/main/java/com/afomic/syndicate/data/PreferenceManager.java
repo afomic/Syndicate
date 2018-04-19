@@ -12,6 +12,7 @@ public class PreferenceManager {
 
     private static final String PREFERENCE_FILE_NAME="com.example.afomic.syndicate";
     private static final String PREF_USER_IS_LOGGED_IN="has_account";
+    private static final String PREF_USER_ID="user_id";
 
     @Inject
     public PreferenceManager(Context context){
@@ -25,5 +26,14 @@ public class PreferenceManager {
 
     public boolean isLoggedIn(){
         return mSharedPreferences.getBoolean(PREF_USER_IS_LOGGED_IN,false);
+    }
+    public void setUserId(String userId){
+        SharedPreferences.Editor mEditor=mSharedPreferences.edit();
+        mEditor.putString(PREF_USER_ID,userId);
+        mEditor.apply();
+    }
+
+    public String getUserId(){
+        return mSharedPreferences.getString(PREF_USER_ID,"no_user");
     }
 }

@@ -38,6 +38,7 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnife"
     implementation "com.google.dagger:dagger:$daggerVersion"
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

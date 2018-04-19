@@ -51,4 +51,15 @@ public class ChatListFragment extends Fragment implements ChatListView {
     public void hideProgressBar() {
 
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnbinder.unbind();
+    }
+
+    @Override
+    public void showEmptyView() {
+
+    }
 }

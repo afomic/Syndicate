@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:checkableBehavior="single" android:menuCategory="container">
+        <item
+            android:title="Chats"
+            android:id="@+id/menu_chats"
+            android:icon="@drawable/ic_chat"
+            android:checked="true"/>
+        <item
+            android:title="Friends"
+            android:id="@+id/menu_friends"
+            android:icon="@drawable/ic_list"/>
+        <item
+            android:title="Profile"
+            android:icon="@drawable/ic_person"
+            android:id="@+id/menu_profile"/>
+    </group>
+
+</menu>

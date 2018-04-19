@@ -43,7 +43,7 @@ public class AuthManager {
     }
     public void createUser(final User user, String email, String password,
                            final AuthManagerCallback authManagerCallback){
-        mFirebaseAuth.signInWithEmailAndPassword(email,password)
+        mFirebaseAuth.createUserWithEmailAndPassword(email,password)
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {

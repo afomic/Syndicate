@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import com.afomic.syndicate.R;
 import com.afomic.syndicate.Syndicate;
 import com.afomic.syndicate.base.BaseActivity;
-import com.afomic.syndicate.ui.home.MainActivity;
+import com.afomic.syndicate.ui.main.MainActivity;
 import com.afomic.syndicate.ui.login.LoginActivity;
 
 import javax.inject.Inject;

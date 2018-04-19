@@ -69,6 +69,7 @@
             <Button
                 android:text="@string/button_sign_up_label"
                 android:id="@+id/btn_sign_up"
+                android:layout_margin="@dimen/button_margin"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="wrap_content" />
