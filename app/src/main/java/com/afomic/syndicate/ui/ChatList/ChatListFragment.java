@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -69,9 +70,11 @@ public class ChatListFragment extends Fragment implements ChatListView {
     public void setUpView(){
         mChats=new LinkedList<>();
         mChatAdapter=new ChatAdapter(getContext(),mChats);
+        chatsRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
+                DividerItemDecoration.VERTICAL));
         chatsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         chatsRecyclerView.setAdapter(mChatAdapter);
-//        chatsRecyclerView.addItemDecoration(new );
+
     }
 
     @Override
