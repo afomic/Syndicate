@@ -44,6 +44,12 @@ public class LoginActivity extends BaseActivity implements LoginView {
                 .inject(this);
         mLoginPresenter.takeView(this);
     }
+
+    @Override
+    public void setUpView() {
+
+    }
+
     @OnClick(R.id.btn_login)
     public void loginUser(){
         String email=getText(emailEditText);

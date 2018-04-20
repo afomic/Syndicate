@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity implements MainView{
                 .applicationComponent()
                 .inject(this);
         mMainPresenter.takeView(this);
-        setUpView();
     }
+    @Override
     public void setUpView(){
         setSupportActionBar(mToolbar);
         ActionBar actionBar=getSupportActionBar();

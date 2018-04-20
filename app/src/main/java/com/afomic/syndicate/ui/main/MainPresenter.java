@@ -21,6 +21,7 @@ public class MainPresenter implements BasePresenter<MainView> {
     @Override
     public void takeView(MainView view) {
         mMainView=view;
+        mMainView.setUpView();
     }
 
     @Override

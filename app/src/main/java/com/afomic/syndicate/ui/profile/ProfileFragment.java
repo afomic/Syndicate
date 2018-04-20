@@ -40,6 +40,11 @@ public class ProfileFragment extends Fragment implements BaseView {
     }
 
     @Override
+    public void setUpView() {
+
+    }
+
+    @Override
     public void showMessage(String message) {
 
     }

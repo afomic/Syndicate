@@ -25,6 +25,11 @@ public class WelcomeActivity extends BaseActivity implements WelcomeView{
     }
 
     @Override
+    public void setUpView() {
+
+    }
+
+    @Override
     public void showHomeView() {
         showActivityAndFinish(MainActivity.class);
     }

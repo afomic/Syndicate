@@ -63,9 +63,9 @@ public class ChatListFragment extends Fragment implements ChatListView {
         mUnbinder= ButterKnife.bind(this,v);
         mChatListPresenter.takeView(this);
         mChatListPresenter.loadChats();
-        setUpView();
         return v;
     }
+    @Override
     public void setUpView(){
         mChats=new LinkedList<>();
         mChatAdapter=new ChatAdapter(getContext(),mChats);

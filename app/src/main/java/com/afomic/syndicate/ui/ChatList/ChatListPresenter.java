@@ -23,6 +23,7 @@ public class ChatListPresenter implements BasePresenter<ChatListView> {
     @Override
     public void takeView(ChatListView view) {
         mChatListView=view;
+        mChatListView.setUpView();
     }
 
     public void loadChats(){

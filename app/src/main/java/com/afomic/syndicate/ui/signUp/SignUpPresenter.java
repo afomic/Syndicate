@@ -18,6 +18,7 @@ public class SignUpPresenter implements BasePresenter<SignUpView> {
     @Override
     public void takeView(SignUpView view) {
         mSignUpView=view;
+        mSignUpView.setUpView();
     }
 
     @Override

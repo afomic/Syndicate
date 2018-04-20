@@ -10,7 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.afomic.syndicate.R;
+import com.afomic.syndicate.adapter.FriendAdapter;
 import com.afomic.syndicate.di.DependencyInjector;
+import com.afomic.syndicate.model.User;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -18,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class FriendListFragment extends Fragment implements FriendListView{
+public class FriendListFragment extends Fragment implements FriendListView,FriendAdapter.FriendListener{
     @Inject
     FriendListPresenter mFriendListPresenter;
     @BindView(R.id.rv_friends)
@@ -42,7 +46,14 @@ public class FriendListFragment extends Fragment implements FriendListView{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v= inflater.inflate(R.layout.fragment_friend_list,container,false);
         mUnbinder= ButterKnife.bind(this,v);
-        return super.onCreateView(inflater, container, savedInstanceState);
+        mFriendListPresenter.takeView(this);
+        mFriendListPresenter.loadData();
+        return v;
+    }
+
+    @Override
+    public void setUpView() {
+
     }
 
     @Override
@@ -57,6 +68,31 @@ public class FriendListFragment extends Fragment implements FriendListView{
 
     @Override
     public void hideProgressBar() {
+
+    }
+
+    @Override
+    public void showEmptyView() {
+
+    }
+
+    @Override
+    public void hideEmptyView() {
+
+    }
+
+    @Override
+    public void addChat(List<User> friends) {
+
+    }
+
+    @Override
+    public void showFriendDetailView(User friend) {
+
+    }
+
+    @Override
+    public void onClick(User friend) {
 
     }
 

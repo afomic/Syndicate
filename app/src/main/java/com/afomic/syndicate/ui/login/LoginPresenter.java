@@ -16,6 +16,7 @@ public class LoginPresenter implements BasePresenter<LoginView> {
     @Override
     public void takeView(LoginView view) {
         mLoginView=view;
+        mLoginView.setUpView();
     }
     public void signUpButtonClicked(){
         mLoginView.showSignUpView();

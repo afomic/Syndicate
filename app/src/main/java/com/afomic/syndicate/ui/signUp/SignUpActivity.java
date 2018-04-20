@@ -56,8 +56,8 @@ public class SignUpActivity extends BaseActivity implements SignUpView {
                 .applicationComponent()
                 .inject(this);
         mSignUpPresenter.takeView(this);
-        setUpView();
     }
+    @Override
     public void setUpView(){
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

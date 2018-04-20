@@ -11,6 +11,11 @@ public class MessageActivity extends AppCompatActivity implements MessageView {
     }
 
     @Override
+    public void setUpView() {
+
+    }
+
+    @Override
     public void showMessage(String message) {
 
     }
