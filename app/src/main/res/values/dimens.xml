@@ -19,4 +19,6 @@
     <dimen name="nav_header_icon_border_size">4dp</dimen>
     <dimen name="button_margin">8dp</dimen>
     <dimen name="content_padding">8dp</dimen>
+    <dimen name="container_margin">8dp</dimen>
+    <dimen name="icon_padding">4dp</dimen>
 </resources>

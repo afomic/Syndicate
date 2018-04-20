@@ -3,9 +3,8 @@ package com.afomic.syndicate.ui.ChatList;
 import com.afomic.syndicate.base.BasePresenter;
 import com.afomic.syndicate.data.DataSource;
 import com.afomic.syndicate.data.PreferenceManager;
+import com.afomic.syndicate.data.RealTimeDataSourceCallback;
 import com.afomic.syndicate.model.Chat;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 
 import javax.inject.Inject;
 
@@ -15,7 +14,7 @@ public class ChatListPresenter implements BasePresenter<ChatListView> {
     @Inject
     DataSource mDataSource;
     private ChatListView mChatListView;
-    private DataSource.RealTimeSourceCallback<Chat> mChatRealTimeSourceCallback;
+    private RealTimeDataSourceCallback<Chat> mChatRealTimeDataSourceCallback;
     @Inject
     public ChatListPresenter(){
 
@@ -28,9 +27,10 @@ public class ChatListPresenter implements BasePresenter<ChatListView> {
 
     public void loadChats(){
         mChatListView.showProgressBar();
-        mChatRealTimeSourceCallback=new DataSource.RealTimeSourceCallback<Chat>(){
+        mChatRealTimeDataSourceCallback =new RealTimeDataSourceCallback<Chat>(){
             @Override
             public void onFailure(String message) {
+                mChatListView.hideProgressBar();
                 mChatListView.showMessage(message);
             }
 
@@ -60,10 +60,10 @@ public class ChatListPresenter implements BasePresenter<ChatListView> {
                 }
             }
         };
-        mDataSource.getChats(mPreferenceManager.getUserId(),mChatRealTimeSourceCallback);
+        mDataSource.getChats(mPreferenceManager.getUserId(), mChatRealTimeDataSourceCallback);
     }
     @Override
     public void dropView() {
-        mChatRealTimeSourceCallback=null;
+        mChatRealTimeDataSourceCallback =null;
     }
 }

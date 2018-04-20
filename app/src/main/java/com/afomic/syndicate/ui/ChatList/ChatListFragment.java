@@ -100,6 +100,7 @@ public class ChatListFragment extends Fragment implements ChatListView {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        mChatListPresenter.dropView();
         mUnbinder.unbind();
     }
 
@@ -140,9 +141,4 @@ public class ChatListFragment extends Fragment implements ChatListView {
         return -1;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mChatListPresenter.dropView();
-    }
 }

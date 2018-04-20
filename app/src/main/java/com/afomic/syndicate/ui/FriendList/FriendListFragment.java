@@ -1,5 +1,6 @@
 package com.afomic.syndicate.ui.FriendList;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,6 +9,8 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -16,8 +19,10 @@ import android.widget.Toast;
 
 import com.afomic.syndicate.R;
 import com.afomic.syndicate.adapter.FriendAdapter;
+import com.afomic.syndicate.data.Constants;
 import com.afomic.syndicate.di.DependencyInjector;
 import com.afomic.syndicate.model.User;
+import com.afomic.syndicate.ui.userDetail.UserDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +71,7 @@ public class FriendListFragment extends Fragment implements FriendListView,Frien
 
     @Override
     public void setUpView() {
+        setHasOptionsMenu(true);
         mFriends=new ArrayList<>();
         mFriendAdapter=new FriendAdapter(getContext(),mFriends,this);
         mFriendsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -97,7 +103,9 @@ public class FriendListFragment extends Fragment implements FriendListView,Frien
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        mFriendListPresenter.dropView();
         mUnbinder.unbind();
+
     }
 
     @Override
@@ -119,11 +127,8 @@ public class FriendListFragment extends Fragment implements FriendListView,Frien
     public void onClick(User friend) {
         mFriendListPresenter.friendClicked(friend);
     }
-
     @Override
     public void onDestroy() {
-        mUnbinder.unbind();
-        mFriendListPresenter.dropView();
         super.onDestroy();
     }
 
@@ -136,5 +141,13 @@ public class FriendListFragment extends Fragment implements FriendListView,Frien
 
     @Override
     public void showFriendDetailView(User friend) {
+        Intent intent=new Intent(getActivity(), UserDetailActivity.class);
+        intent.putExtra(Constants.EXTRA_USER,friend);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_friend_search,menu);
     }
 }

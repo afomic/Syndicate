@@ -7,6 +7,8 @@ import com.afomic.syndicate.ui.FriendList.FriendListFragment;
 import com.afomic.syndicate.ui.main.MainActivity;
 import com.afomic.syndicate.ui.login.LoginActivity;
 import com.afomic.syndicate.ui.login.LoginPresenter;
+import com.afomic.syndicate.ui.profile.ProfileFragment;
+import com.afomic.syndicate.ui.profile.ProfileView;
 import com.afomic.syndicate.ui.signUp.SignUpActivity;
 import com.afomic.syndicate.ui.userDetail.UserDetailActivity;
 import com.afomic.syndicate.ui.welcome.WelcomeActivity;
@@ -26,5 +28,6 @@ public interface AppComponent {
     void inject(MainActivity activity);
     void inject(ChatListFragment fragment);
     void inject(FriendListFragment fragment);
+    void inject(ProfileFragment fragment);
     void inject(UserDetailActivity activity);
 }

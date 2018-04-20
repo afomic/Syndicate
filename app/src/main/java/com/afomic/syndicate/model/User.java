@@ -1,6 +1,9 @@
 package com.afomic.syndicate.model;
 
-public class User {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class User implements Parcelable{
     private String id;
     private String firstName;
     private String lastName;
@@ -9,6 +12,42 @@ public class User {
     private String pictureUrl;
     public User(){
 
+    }
+
+    protected User(Parcel in) {
+        id = in.readString();
+        firstName = in.readString();
+        lastName = in.readString();
+        status = in.readString();
+        timeCreated = in.readLong();
+        pictureUrl = in.readString();
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(firstName);
+        dest.writeString(lastName);
+        dest.writeString(status);
+        dest.writeLong(timeCreated);
+        dest.writeString(pictureUrl);
     }
 
     public String getId() {

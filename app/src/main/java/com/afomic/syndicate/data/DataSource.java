@@ -1,12 +1,9 @@
 package com.afomic.syndicate.data;
 
-import android.util.Log;
-
 import com.afomic.syndicate.model.Chat;
 import com.afomic.syndicate.model.Friend;
 import com.afomic.syndicate.model.Message;
 import com.afomic.syndicate.model.User;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +24,7 @@ public class DataSource {
         mFirebaseDatabase=FirebaseDatabase
                 .getInstance();
     }
-    public void getChats(String userId, final RealTimeSourceCallback<Chat> callback){
+    public void getChats(String userId, final RealTimeDataSourceCallback<Chat> callback){
         DatabaseReference chatRef=mFirebaseDatabase.getReference(Constants.CHATS_REF)
                 .child(userId);
         chatRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -43,7 +40,7 @@ public class DataSource {
         });
          chatRef.addChildEventListener(callback);
     }
-    public void getMessage(String chatId, RealTimeSourceCallback<Message> callback){
+    public void getMessage(String chatId, RealTimeDataSourceCallback<Message> callback){
         mFirebaseDatabase.getReference(Constants.MESSAGES_REF)
                 .child(chatId)
                 .addChildEventListener(callback);
@@ -74,6 +71,7 @@ public class DataSource {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        callback.hasChildren(dataSnapshot.hasChildren());
                         final long totalFriendCount=dataSnapshot.getChildrenCount();
                         for(DataSnapshot snapshot:dataSnapshot.getChildren()){
                             final Friend friend=snapshot.getValue(Friend.class);
@@ -125,70 +123,25 @@ public class DataSource {
                     }
                 });
     }
-    public interface DataSourceCallBack {
-        void onFailure(String message);
-        void hasChildren(boolean hasChild);
+    public void searchUser(String query, final ListDataSourceCallback<User> callback){
+        mFirebaseDatabase.getReference(Constants.USER_REF)
+                .orderByChild("firstName")
+                .equalTo(query)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        callback.hasChildren(dataSnapshot.hasChildren());
+                        List<User> users=new ArrayList<>();
+                        for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                            users.add(snapshot.getValue(User.class));
+                        }
+                        callback.onSuccess(users);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        callback.onFailure(databaseError.getMessage());
+                    }
+                });
     }
-    public interface SingleItemDataSourceCallback<T> extends DataSourceCallBack {
-        void onSuccess(T response);
-    }
-    public interface ListDataSourceCallback<T> extends DataSourceCallBack {
-        void onSuccess(List<T> response);
-    }
-    public abstract static class RealTimeSourceCallback<T> implements DataSourceCallBack,ChildEventListener {
-        @Override
-        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-            try{
-                @SuppressWarnings("unchecked")
-                T data=(T)dataSnapshot.getValue();
-                onNewData(data);
-            }catch (ClassCastException e){
-                e.printStackTrace();
-                onFailure(e.getMessage());
-            }
-
-        }
-
-        @Override
-        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            try{
-                @SuppressWarnings("unchecked")
-                T data=(T)dataSnapshot.getValue();
-                onUpdate(data);
-            }catch (ClassCastException e){
-                e.printStackTrace();
-                onFailure(e.getMessage());
-            }
-
-        }
-
-        @Override
-        public void onChildRemoved(DataSnapshot dataSnapshot) {
-            try{
-                @SuppressWarnings("unchecked")
-                T data=(T)dataSnapshot.getValue();
-                onRemove(data);
-            }catch (ClassCastException e){
-                e.printStackTrace();
-                onFailure(e.getMessage());
-            }
-        }
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-            onFailure(databaseError.getMessage());
-            Log.e("tag", "onCancelled: "+databaseError.getMessage());
-
-        }
-
-        @Override
-        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-        }
-
-        public abstract void onNewData(T data);
-        public abstract void onUpdate(T data);
-        public abstract void onRemove(T data);
-    }
-
 }

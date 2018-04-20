@@ -11,4 +11,7 @@
     <string name="button_log_in_label">Log In</string>
     <string name="login_tittle">Login</string>
     <string name="empty_view_message">You Currently have no chat</string>
+    <string name="friends_empty_view_message">You currently have no Friend</string>
+    <string name="add_friend_title">Add As Friend</string>
+    <string name="btn_chat_title">Chat Up</string>
 </resources>

@@ -3,6 +3,8 @@ package com.afomic.syndicate.ui.profile;
 import com.afomic.syndicate.base.BasePresenter;
 import com.afomic.syndicate.data.DataSource;
 import com.afomic.syndicate.data.PreferenceManager;
+import com.afomic.syndicate.data.SingleItemDataSourceCallback;
+import com.afomic.syndicate.model.User;
 
 import javax.inject.Inject;
 
@@ -20,6 +22,24 @@ public class ProfilePresenter implements BasePresenter<ProfileView> {
     public void takeView(ProfileView view) {
         mProfileView=view;
         mProfileView.setUpView();
+    }
+    public void loadData(){
+        mDataSource.getUser(mPreferenceManager.getUserId(), new SingleItemDataSourceCallback<User>() {
+            @Override
+            public void onSuccess(User response) {
+                mProfileView.showProfile(response);
+            }
+
+            @Override
+            public void onFailure(String message) {
+                mProfileView.showMessage(message);
+            }
+
+            @Override
+            public void hasChildren(boolean hasChild) {
+
+            }
+        });
     }
 
 

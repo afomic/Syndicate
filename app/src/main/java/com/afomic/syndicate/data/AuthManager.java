@@ -28,6 +28,7 @@ public class AuthManager {
                     public void onSuccess(AuthResult authResult) {
                         authManagerCallback.onSuccess();
                         mPreferenceManager.setLoggedIn(true);
+                        mPreferenceManager.setUserId(authResult.getUser().getUid());
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -47,7 +48,7 @@ public class AuthManager {
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        String id=authResult.getUser().getProviderId();
+                        String id=authResult.getUser().getUid();
                         user.setId(id);
                         saveUser(user,authManagerCallback);
                     }
@@ -59,7 +60,7 @@ public class AuthManager {
         });
 
     }
-    private void saveUser(User user, final AuthManagerCallback callback){
+    private void saveUser(final User user, final AuthManagerCallback callback){
         FirebaseDatabase.getInstance()
                 .getReference(Constants.USER_REF)
                 .child(user.getId())
@@ -73,6 +74,7 @@ public class AuthManager {
             @Override
             public void onSuccess(Void aVoid) {
                 mPreferenceManager.setLoggedIn(true);
+                mPreferenceManager.setUserId(user.getId());
                 callback.onSuccess();
             }
         });
