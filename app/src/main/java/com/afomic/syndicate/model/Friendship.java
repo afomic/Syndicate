@@ -1,9 +1,14 @@
 package com.afomic.syndicate.model;
 
-public class Friend {
+public class Friendship {
     private String id;
     private String userID;
-    public Friend(){
+
+    public Friendship(){
+
+    }
+    public Friendship(String userID){
+        this.userID=userID;
 
     }
 

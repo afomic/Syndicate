@@ -1,9 +1,13 @@
 package com.afomic.syndicate.data;
 
+import android.support.annotation.NonNull;
+
 import com.afomic.syndicate.model.Chat;
-import com.afomic.syndicate.model.Friend;
+import com.afomic.syndicate.model.Friendship;
 import com.afomic.syndicate.model.Message;
 import com.afomic.syndicate.model.User;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -74,10 +78,10 @@ public class DataSource {
                         callback.hasChildren(dataSnapshot.hasChildren());
                         final long totalFriendCount=dataSnapshot.getChildrenCount();
                         for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                            final Friend friend=snapshot.getValue(Friend.class);
+                            final Friendship friendship =snapshot.getValue(Friendship.class);
                             FirebaseDatabase.getInstance()
                                     .getReference(Constants.USER_REF)
-                                    .child(friend.getUserID())
+                                    .child(friendship.getUserID())
                                     .addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -143,5 +147,40 @@ public class DataSource {
                         callback.onFailure(databaseError.getMessage());
                     }
                 });
+    }
+    public void addFriend(User userOne, final User userTwo, final SingleItemDataSourceCallback<User> callback){
+        Friendship friendshipOne=new Friendship(userTwo.getId());
+        final Friendship friendshipTwo=new Friendship(userOne.getId());
+        String id1=mFirebaseDatabase.getReference(Constants.FRIENDS_REF)
+                .child(userOne.getId())
+                .push()
+                .getKey();
+        friendshipOne.setId(id1);
+        String id2=mFirebaseDatabase.getReference(Constants.FRIENDS_REF)
+                .child(userTwo.getId())
+                .push()
+                .getKey();
+        friendshipTwo.setId(id2);
+        mFirebaseDatabase.getReference(Constants.FRIENDS_REF)
+                .child(userOne.getId())
+                .child(friendshipOne.getId())
+                .setValue(friendshipOne)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        mFirebaseDatabase.getReference(Constants.FRIENDS_REF)
+                                .child(userTwo.getId())
+                                .child(friendshipTwo.getId())
+                                .setValue(friendshipTwo);
+                        callback.onSuccess(userTwo);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                callback.onFailure(e.getMessage());
+            }
+        });
+
+
     }
 }

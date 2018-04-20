@@ -10,15 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afomic.syndicate.R;
-import com.afomic.syndicate.model.Friend;
 import com.afomic.syndicate.model.User;
 import com.afomic.syndicate.util.GlideApp;
-import com.bumptech.glide.Glide;
 
 import java.util.List;
 import java.util.Locale;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendViewHolder> {
     private Context mContext;
