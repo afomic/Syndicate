@@ -6,9 +6,9 @@
     android:layout_width="match_parent"
     android:gravity="center_vertical"
     android:layout_height="wrap_content">
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:padding="@dimen/user_icon_padding"
-        android:id="@+id/imv_recipient_initials"
+        android:id="@+id/imv_friend_picture"
         android:layout_width="@dimen/user_icon_image_weight"
         android:layout_margin="@dimen/user_icon_margin"
         android:layout_height="@dimen/user_icon_image_height"/>
@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="match_parent"
             tools:text="Anonymous developer"
-            android:id="@+id/tv_recipient"
+            android:id="@+id/tv_friend_name"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:layout_weight="1"
             android:textSize="@dimen/big_text_size"
@@ -30,7 +30,7 @@
             tools:text="i will buy it all sir"
             android:maxLines="1"
             android:ellipsize="end"
-            android:id="@+id/tv_last_message"
+            android:id="@+id/tv_friend_status"
             android:padding="@dimen/content_text_padding"
             android:layout_height="wrap_content"/>
     </LinearLayout>

@@ -10,4 +10,5 @@
     <string name="button_sign_up_label">Sign Up</string>
     <string name="button_log_in_label">Log In</string>
     <string name="login_tittle">Login</string>
+    <string name="empty_view_message">You Currently have no chat</string>
 </resources>

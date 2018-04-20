@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.afomic.syndicate.Syndicate;
 import com.afomic.syndicate.base.BaseActivity;
+import com.afomic.syndicate.di.DependencyInjector;
 import com.afomic.syndicate.ui.main.MainActivity;
 import com.afomic.syndicate.ui.login.LoginActivity;
 
@@ -16,8 +17,8 @@ public class WelcomeActivity extends BaseActivity implements WelcomeView{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ((Syndicate)getApplication())
-                .getComponent()
+        DependencyInjector
+                .applicationComponent()
                 .inject(this);
         welcomePresenter.takeView(this);
         welcomePresenter.showNextActivity();

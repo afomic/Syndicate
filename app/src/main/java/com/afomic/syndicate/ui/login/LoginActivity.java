@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import com.afomic.syndicate.R;
 import com.afomic.syndicate.Syndicate;
 import com.afomic.syndicate.base.BaseActivity;
+import com.afomic.syndicate.di.DependencyInjector;
 import com.afomic.syndicate.ui.main.MainActivity;
 import com.afomic.syndicate.ui.signUp.SignUpActivity;
 
@@ -38,8 +39,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        ((Syndicate)getApplication())
-                .getComponent()
+        DependencyInjector
+                .applicationComponent()
                 .inject(this);
         mLoginPresenter.takeView(this);
     }

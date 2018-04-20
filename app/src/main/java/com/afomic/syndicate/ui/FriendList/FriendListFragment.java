@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.afomic.syndicate.R;
+import com.afomic.syndicate.di.DependencyInjector;
 
 import javax.inject.Inject;
 
@@ -30,6 +31,9 @@ public class FriendListFragment extends Fragment implements FriendListView{
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        DependencyInjector
+                .applicationComponent()
+                .inject(this);
         super.onCreate(savedInstanceState);
     }
 
@@ -54,5 +58,12 @@ public class FriendListFragment extends Fragment implements FriendListView{
     @Override
     public void hideProgressBar() {
 
+    }
+
+    @Override
+    public void onDestroy() {
+        mUnbinder.unbind();
+        mFriendListPresenter.dropView();
+        super.onDestroy();
     }
 }

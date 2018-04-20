@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.afomic.syndicate.R;
 import com.afomic.syndicate.Syndicate;
+import com.afomic.syndicate.di.DependencyInjector;
 import com.afomic.syndicate.ui.ChatList.ChatListFragment;
 import com.afomic.syndicate.ui.FriendList.FriendListFragment;
 import com.afomic.syndicate.ui.profile.ProfileFragment;
@@ -41,8 +42,8 @@ public class MainActivity extends AppCompatActivity implements MainView{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        ((Syndicate)getApplication())
-                .getComponent()
+        DependencyInjector
+                .applicationComponent()
                 .inject(this);
         mMainPresenter.takeView(this);
         setUpView();
