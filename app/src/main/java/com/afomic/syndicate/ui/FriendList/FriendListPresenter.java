@@ -60,4 +60,7 @@ public class FriendListPresenter implements BasePresenter<FriendListView> {
     public void friendClicked(User friend){
         mFriendListView.showFriendDetailView(friend);
     }
+    public void searchMenuSelected(){
+        mFriendListView.showUserSearchView();
+    }
 }

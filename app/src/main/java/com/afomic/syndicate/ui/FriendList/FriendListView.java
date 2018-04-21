@@ -10,4 +10,5 @@ public interface FriendListView extends BaseView {
     void hideEmptyView();
     void addChat(List<User> friends);
     void showFriendDetailView(User friend);
+    void showUserSearchView();
 }

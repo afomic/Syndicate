@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -23,6 +24,7 @@ import com.afomic.syndicate.data.Constants;
 import com.afomic.syndicate.di.DependencyInjector;
 import com.afomic.syndicate.model.User;
 import com.afomic.syndicate.ui.userDetail.UserDetailActivity;
+import com.afomic.syndicate.ui.userSearch.UserSearchActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -140,6 +142,12 @@ public class FriendListFragment extends Fragment implements FriendListView,UserA
     }
 
     @Override
+    public void showUserSearchView() {
+        Intent intent=new Intent(getActivity(), UserSearchActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
     public void showFriendDetailView(User friend) {
         Intent intent=new Intent(getActivity(), UserDetailActivity.class);
         intent.putExtra(Constants.EXTRA_USER,friend);
@@ -149,5 +157,14 @@ public class FriendListFragment extends Fragment implements FriendListView,UserA
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_friend_search,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_search:
+                mFriendListPresenter.searchMenuSelected();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
