@@ -13,7 +13,6 @@ public class Chat implements Parcelable {
     private String id;
     private String lastMessage;
     private long lastUpdate;
-    private int color;
 
     public Chat(){
     }
@@ -24,7 +23,6 @@ public class Chat implements Parcelable {
         id = in.readString();
         lastMessage = in.readString();
         lastUpdate = in.readLong();
-        color = in.readInt();
     }
 
     public static final Creator<Chat> CREATOR = new Creator<Chat>() {
@@ -39,13 +37,6 @@ public class Chat implements Parcelable {
         }
     };
 
-    public int getColor() {
-        return color;
-    }
-
-    public void setColor(int color) {
-        this.color = color;
-    }
 
     @Override
     public int describeContents() {
@@ -59,7 +50,6 @@ public class Chat implements Parcelable {
         dest.writeString(id);
         dest.writeString(lastMessage);
         dest.writeLong(lastUpdate);
-        dest.writeInt(color);
     }
 
     public String getUserOne() {

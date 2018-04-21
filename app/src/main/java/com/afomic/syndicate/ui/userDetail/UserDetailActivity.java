@@ -2,15 +2,17 @@ package com.afomic.syndicate.ui.userDetail;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+
 import com.afomic.syndicate.R;
 import com.afomic.syndicate.base.BaseActivity;
-import com.afomic.syndicate.base.BaseView;
-import com.afomic.syndicate.data.Constants;
 import com.afomic.syndicate.di.DependencyInjector;
+import com.afomic.syndicate.model.Chat;
 import com.afomic.syndicate.model.User;
 
 import javax.inject.Inject;
@@ -26,6 +28,12 @@ public class UserDetailActivity extends BaseActivity implements UserDetailView{
     TextView usernameTextView;
     @BindView(R.id.tv_user_status)
     TextView statusTextView;
+    @BindView(R.id.btn_chat)
+    Button chatButton;
+    @BindView(R.id.btn_add_friend)
+    Button addFriendButton;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
     @Inject
     UserDetailPresenter mUserDetailPresenter;
     @Override
@@ -42,7 +50,8 @@ public class UserDetailActivity extends BaseActivity implements UserDetailView{
 
     @Override
     public void setUpView() {
-
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -77,5 +86,21 @@ public class UserDetailActivity extends BaseActivity implements UserDetailView{
     @OnClick(R.id.btn_chat)
     public void createChat(){
         mUserDetailPresenter.startChat();
+    }
+
+    @Override
+    public void showMessageView(Chat chat) {
+
+    }
+
+    @Override
+    public void enableControls(boolean enable) {
+        addFriendButton.setEnabled(enable);
+        chatButton.setEnabled(enable);
+    }
+
+    @Override
+    public void disableAddFriend() {
+        addFriendButton.setEnabled(false);
     }
 }

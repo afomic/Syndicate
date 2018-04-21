@@ -125,14 +125,6 @@ public class SignUpActivity extends BaseActivity implements SignUpView {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==android.R.id.home){
-           finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     protected void onDestroy() {
         mSignUpPresenter.dropView();
         super.onDestroy();

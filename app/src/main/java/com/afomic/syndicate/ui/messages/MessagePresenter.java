@@ -9,7 +9,6 @@ public class MessagePresenter implements BasePresenter<MessageView> {
     @Inject
     DataSource mDataSource;
 
-
     private MessageView mMessageView;
     @Inject
     public MessagePresenter(){
@@ -23,6 +22,9 @@ public class MessagePresenter implements BasePresenter<MessageView> {
 
     @Override
     public void dropView() {
+
+    }
+    public void sendMessage(String message){
 
     }
 }

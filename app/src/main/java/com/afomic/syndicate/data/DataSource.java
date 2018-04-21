@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -148,31 +149,31 @@ public class DataSource {
                     }
                 });
     }
-    public void addFriend(User userOne, final User userTwo, final SingleItemDataSourceCallback<User> callback){
-        Friendship friendshipOne=new Friendship(userTwo.getId());
-        final Friendship friendshipTwo=new Friendship(userOne.getId());
+    public void addFriend(String userOne, final String userTwo, final SingleItemDataSourceCallback<User> callback){
+        Friendship friendshipOne=new Friendship(userTwo);
+        final Friendship friendshipTwo=new Friendship(userOne);
         String id1=mFirebaseDatabase.getReference(Constants.FRIENDS_REF)
-                .child(userOne.getId())
+                .child(userOne)
                 .push()
                 .getKey();
         friendshipOne.setId(id1);
         String id2=mFirebaseDatabase.getReference(Constants.FRIENDS_REF)
-                .child(userTwo.getId())
+                .child(userTwo)
                 .push()
                 .getKey();
         friendshipTwo.setId(id2);
         mFirebaseDatabase.getReference(Constants.FRIENDS_REF)
-                .child(userOne.getId())
+                .child(userOne)
                 .child(friendshipOne.getId())
                 .setValue(friendshipOne)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         mFirebaseDatabase.getReference(Constants.FRIENDS_REF)
-                                .child(userTwo.getId())
+                                .child(userTwo)
                                 .child(friendshipTwo.getId())
                                 .setValue(friendshipTwo);
-                        callback.onSuccess(userTwo);
+                        callback.onSuccess(null);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -182,5 +183,35 @@ public class DataSource {
         });
 
 
+    }
+    public void startChat(String userOne, final String userTwo, final SingleItemDataSourceCallback<Chat> callback){
+        String[] ids={userOne,userTwo};
+        //chat id should always be the same for two set of people
+        Arrays.sort(ids);
+        final String chatId=ids[0]+ids[1];
+        final Chat chat=new Chat();
+        chat.setUserOne(userOne);
+        chat.setUserTwo(userTwo);
+        chat.setLastUpdate(System.currentTimeMillis());
+        chat.setId(chatId);
+        mFirebaseDatabase.getReference(Constants.CHATS_REF)
+                .child(userOne)
+                .child(chatId)
+                .setValue(chat)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        mFirebaseDatabase.getReference(Constants.CHATS_REF)
+                                .child(userTwo)
+                                .child(chatId)
+                                .setValue(chat);
+                        callback.onSuccess(chat);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                callback.onFailure(e.getMessage());
+            }
+        });
     }
 }

@@ -16,11 +16,11 @@ import com.afomic.syndicate.util.GlideApp;
 import java.util.List;
 import java.util.Locale;
 
-public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendViewHolder> {
+public class UserAdapter extends RecyclerView.Adapter<UserAdapter.FriendViewHolder> {
     private Context mContext;
     private List<User> mFriends;
     private FriendListener mFriendListener;
-    public FriendAdapter(Context context,List<User> friends,FriendListener friendListener){
+    public UserAdapter(Context context, List<User> friends, FriendListener friendListener){
         mContext=context;
         mFriendListener=friendListener;
         mFriends=friends;

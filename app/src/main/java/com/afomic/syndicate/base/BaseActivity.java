@@ -2,9 +2,11 @@ package com.afomic.syndicate.base;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.afomic.syndicate.R;
 import com.afomic.syndicate.ui.welcome.WelcomeActivity;
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -23,4 +25,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==android.R.id.home){
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
         switch (item.getItemId()){
             case android.R.id.home:
                 mDrawer.openDrawer(Gravity.START,true);
-                break;
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

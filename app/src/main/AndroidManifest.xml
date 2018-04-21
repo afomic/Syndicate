@@ -21,6 +21,7 @@
         <activity android:name=".ui.signUp.SignUpActivity"/>
         <activity android:name=".ui.login.LoginActivity"/>
         <activity android:name=".ui.userDetail.UserDetailActivity"/>
+        <activity android:name=".ui.messages.MessageActivity"/>
     </application>
 
 </manifest>

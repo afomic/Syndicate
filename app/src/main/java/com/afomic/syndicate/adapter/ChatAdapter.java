@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by afo mic on 1/24/18.
  *
@@ -46,31 +49,21 @@ public class ChatAdapter  extends RecyclerView.Adapter<ChatAdapter.ChatHolder>{
 
     }
     @Override
-    public ChatHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @NonNull
+    public ChatHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v= LayoutInflater.from(mContext).inflate(R.layout.item_chat,parent,false);
         return new ChatHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(final ChatHolder holder, int position) {
+    public void onBindViewHolder(final @NonNull ChatHolder holder, int position) {
         Chat chatItem=mChats.get(position);
-        String firstLetter;
-        // if i am user one then the person am chating with is userTwo
         if(chatItem.getUserOne().equals(mPreferenceManager.getUserId())){
             holder.recipientTextView.setText(chatItem.getUserTwo());
-            firstLetter= String.valueOf(chatItem.getUserTwo().charAt(0)).toUpperCase();
         }else {
             holder.recipientTextView.setText(chatItem.getUserOne());
-            firstLetter= String.valueOf(chatItem.getUserOne().charAt(0)).toUpperCase();
         }
 
-        TextDrawable myDrawable = TextDrawable.builder().beginConfig()
-                .textColor(Color.WHITE)
-                .useFont(Typeface.DEFAULT)
-                .toUpperCase()
-                .endConfig()
-                .buildRound(firstLetter,chatItem.getColor());
-        holder.recipientInitial.setImageDrawable(myDrawable);
         holder.lastMessageTextView.setText(chatItem.getLastMessage());
         String lastUpdateTime= DateUtil.formatDate(chatItem.getLastUpdate());
         holder.lastUpdateTextView.setText(lastUpdateTime);
@@ -118,7 +111,7 @@ public class ChatAdapter  extends RecyclerView.Adapter<ChatAdapter.ChatHolder>{
 
     public class ChatHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView recipientTextView, lastMessageTextView,lastUpdateTextView,unreadMentionTextView;
-        ImageView recipientInitial;
+        CircleImageView recipientInitial;
         public ChatHolder(View itemView) {
             super(itemView);
              itemView.setOnClickListener(this);

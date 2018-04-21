@@ -18,7 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.afomic.syndicate.R;
-import com.afomic.syndicate.adapter.FriendAdapter;
+import com.afomic.syndicate.adapter.UserAdapter;
 import com.afomic.syndicate.data.Constants;
 import com.afomic.syndicate.di.DependencyInjector;
 import com.afomic.syndicate.model.User;
@@ -33,7 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class FriendListFragment extends Fragment implements FriendListView,FriendAdapter.FriendListener{
+public class FriendListFragment extends Fragment implements FriendListView,UserAdapter.FriendListener{
     @Inject
     FriendListPresenter mFriendListPresenter;
     @BindView(R.id.rv_friends)
@@ -45,7 +45,7 @@ public class FriendListFragment extends Fragment implements FriendListView,Frien
 
 
     private Unbinder mUnbinder;
-    private FriendAdapter mFriendAdapter;
+    private UserAdapter mUserAdapter;
     private List<User> mFriends;
     public static FriendListFragment newInstance(){
        return new FriendListFragment();
@@ -73,11 +73,11 @@ public class FriendListFragment extends Fragment implements FriendListView,Frien
     public void setUpView() {
         setHasOptionsMenu(true);
         mFriends=new ArrayList<>();
-        mFriendAdapter=new FriendAdapter(getContext(),mFriends,this);
+        mUserAdapter =new UserAdapter(getContext(),mFriends,this);
         mFriendsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mFriendsRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL));
-        mFriendsRecyclerView.setAdapter(mFriendAdapter);
+        mFriendsRecyclerView.setAdapter(mUserAdapter);
     }
 
     @Override
@@ -136,7 +136,7 @@ public class FriendListFragment extends Fragment implements FriendListView,Frien
     public void addChat(List<User> friends) {
         mFriends.clear();
         mFriends.addAll(friends);
-        mFriendAdapter.notifyDataSetChanged();
+        mUserAdapter.notifyDataSetChanged();
     }
 
     @Override
