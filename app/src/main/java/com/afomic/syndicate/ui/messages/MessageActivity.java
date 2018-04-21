@@ -46,6 +46,8 @@ public class MessageActivity extends BaseActivity implements MessageView {
         ButterKnife.bind(this);
         DependencyInjector.applicationComponent().inject(this);
         mMessagePresenter.takeView(this);
+        mMessagePresenter.handleIntent(getIntent());
+        mMessagePresenter.loadMessages();
     }
 
     @Override
@@ -81,5 +83,31 @@ public class MessageActivity extends BaseActivity implements MessageView {
         mMessagePresenter.sendMessage(getText(messageEditText));
     }
 
+    @Override
+    public void updateMessage(Message message, int position) {
+        mMessages.remove(position);
+        mMessages.add(position,message);
+        mMessageAdapter.notifyItemChanged(position,message);
+    }
 
+    @Override
+    public int getMessagePosition(Message message) {
+        for(int i=0;i<mMessages.size();i++){
+            if(message.getId().equals(mMessages.get(i).getChatId())){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    @Override
+    public void ShowConversation(Message message) {
+        mMessages.add(message);
+        mMessageAdapter.notifyItemInserted(mMessages.size());
+    }
+
+    @Override
+    public void resetChatBox() {
+        messageEditText.setText("");
+    }
 }

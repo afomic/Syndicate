@@ -16,7 +16,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -30,12 +32,14 @@ public class DataSource {
                 .getInstance();
     }
     public void getChats(String userId, final RealTimeDataSourceCallback<Chat> callback){
-        DatabaseReference chatRef=mFirebaseDatabase.getReference(Constants.CHATS_REF)
+        DatabaseReference chatRef=mFirebaseDatabase
+                .getReference(Constants.CHATS_REF)
                 .child(userId);
         chatRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 callback.hasChildren(dataSnapshot.hasChildren());
+
             }
 
             @Override
@@ -45,10 +49,23 @@ public class DataSource {
         });
          chatRef.addChildEventListener(callback);
     }
-    public void getMessage(String chatId, RealTimeDataSourceCallback<Message> callback){
-        mFirebaseDatabase.getReference(Constants.MESSAGES_REF)
-                .child(chatId)
-                .addChildEventListener(callback);
+    public void getMessage(String chatId,final RealTimeDataSourceCallback<Message> callback){
+        DatabaseReference messageRef= mFirebaseDatabase.getReference(Constants.MESSAGES_REF)
+                .child(chatId);
+        messageRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                callback.hasChildren(dataSnapshot.hasChildren());
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        messageRef.addChildEventListener(callback);
     }
     public void getUsers(final ListDataSourceCallback<User> callback){
         final List<User> users=new ArrayList<>();
@@ -213,5 +230,33 @@ public class DataSource {
                 callback.onFailure(e.getMessage());
             }
         });
+    }
+    public void sendMessage(Message message,String userId,String recipientId,SingleItemDataSourceCallback<Boolean> callback){
+        final DatabaseReference messageRef=mFirebaseDatabase.getReference(Constants.MESSAGES_REF)
+                .child(message.getChatId());
+        final DatabaseReference senderChatRef=mFirebaseDatabase.getReference(Constants.CHATS_REF)
+                .child(userId)
+                .child(message.getChatId());
+        final DatabaseReference recipientChatRef=mFirebaseDatabase.getReference(Constants.CHATS_REF)
+                .child(recipientId)
+                .child(message.getChatId());
+        final String messageId=messageRef.push().getKey();
+        message.setId(messageId);
+
+
+        messageRef.child(messageId)
+                .setValue(message)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        messageRef.child(messageId)
+                                .child("delivered")
+                                .setValue(true);
+                    }
+                });
+        senderChatRef.child("lastMessage").setValue(message.getMessage());
+        senderChatRef.child("lastUpdate").setValue(message.getTime());
+        recipientChatRef.child("lastMessage").setValue(message.getMessage());
+        recipientChatRef.child("lastUpdate").setValue(message.getTime());
     }
 }

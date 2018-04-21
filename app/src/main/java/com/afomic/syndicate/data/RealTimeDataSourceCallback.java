@@ -6,12 +6,14 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 
-public abstract class RealTimeDataSourceCallback<T> implements DataSourceCallback,ChildEventListener {
+public abstract class RealTimeDataSourceCallback<T>
+        implements DataSourceCallback,ChildEventListener {
+
     @Override
     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
         try{
             @SuppressWarnings("unchecked")
-            T data=(T)dataSnapshot.getValue();
+            T data=dataSnapshot.getValue(getType());
             onNewData(data);
         }catch (ClassCastException e){
             e.printStackTrace();
@@ -24,7 +26,7 @@ public abstract class RealTimeDataSourceCallback<T> implements DataSourceCallbac
     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
         try{
             @SuppressWarnings("unchecked")
-            T data=(T)dataSnapshot.getValue();
+            T data=dataSnapshot.getValue(getType());
             onUpdate(data);
         }catch (ClassCastException e){
             e.printStackTrace();
@@ -37,7 +39,7 @@ public abstract class RealTimeDataSourceCallback<T> implements DataSourceCallbac
     public void onChildRemoved(DataSnapshot dataSnapshot) {
         try{
             @SuppressWarnings("unchecked")
-            T data=(T)dataSnapshot.getValue();
+            T data=dataSnapshot.getValue(getType());
             onRemove(data);
         }catch (ClassCastException e){
             e.printStackTrace();
@@ -56,7 +58,7 @@ public abstract class RealTimeDataSourceCallback<T> implements DataSourceCallbac
     public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
     }
-
+    public abstract Class<T> getType();
     public abstract void onNewData(T data);
     public abstract void onUpdate(T data);
     public abstract void onRemove(T data);

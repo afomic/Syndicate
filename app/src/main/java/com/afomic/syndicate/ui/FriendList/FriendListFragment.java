@@ -35,7 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class FriendListFragment extends Fragment implements FriendListView,UserAdapter.FriendListener{
+public class FriendListFragment extends Fragment implements FriendListView,UserAdapter.UserListener{
     @Inject
     FriendListPresenter mFriendListPresenter;
     @BindView(R.id.rv_friends)
@@ -156,7 +156,7 @@ public class FriendListFragment extends Fragment implements FriendListView,UserA
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_friend_search,menu);
+        inflater.inflate(R.menu.menu_search,menu);
     }
 
     @Override

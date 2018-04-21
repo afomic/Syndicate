@@ -21,17 +21,16 @@
             tools:text="Anonymous developer"
             android:id="@+id/tv_friend_name"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:layout_weight="1"
             android:textSize="@dimen/big_text_size"
             android:layout_height="wrap_content"/>
         <TextView
             android:layout_width="match_parent"
-            android:layout_weight="1"
             tools:text="i will buy it all sir"
             android:maxLines="1"
             android:ellipsize="end"
             android:id="@+id/tv_friend_status"
-            android:padding="@dimen/content_text_padding"
+            android:paddingTop="@dimen/content_text_padding"
+            android:paddingBottom="@dimen/content_text_padding"
             android:layout_height="wrap_content"/>
     </LinearLayout>
 

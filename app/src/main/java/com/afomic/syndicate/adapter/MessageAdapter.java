@@ -31,15 +31,13 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private static final int MESSAGE_TYPE_SENT=101;
     private static final int MESSAGE_TYPE_RECEIVED=102;
     private boolean darkTheme;
-
-
-    @Inject
     PreferenceManager mPreferenceManager;
 
     public MessageAdapter(Context context, List<Message> messages, boolean darkTheme){
         mContext=context;
         mChatMessages= messages;
         this.darkTheme=darkTheme;
+        mPreferenceManager=new PreferenceManager(context);
     }
     @Override
     @NonNull

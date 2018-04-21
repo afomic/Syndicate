@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:gravity="center_vertical"
     android:layout_height="wrap_content">
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:padding="@dimen/user_icon_padding"
         android:id="@+id/imv_recipient_initials"
         android:layout_width="@dimen/user_icon_image_weight"

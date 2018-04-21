@@ -17,8 +17,10 @@ import com.afomic.syndicate.data.Constants;
 import com.afomic.syndicate.data.PreferenceManager;
 import com.afomic.syndicate.model.Chat;
 import com.afomic.syndicate.model.Message;
+import com.afomic.syndicate.model.User;
 import com.afomic.syndicate.ui.messages.MessageActivity;
 import com.afomic.syndicate.util.DateUtil;
+import com.afomic.syndicate.util.GlideApp;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,12 +42,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ChatAdapter  extends RecyclerView.Adapter<ChatAdapter.ChatHolder>{
     private Context mContext;
     private List<Chat> mChats;
-    @Inject
     PreferenceManager mPreferenceManager;
 
     public ChatAdapter(Context context, List<Chat> chats){
         mChats=chats;
         mContext=context;
+        mPreferenceManager=new PreferenceManager(context);
 
     }
     @Override
@@ -58,11 +60,31 @@ public class ChatAdapter  extends RecyclerView.Adapter<ChatAdapter.ChatHolder>{
     @Override
     public void onBindViewHolder(final @NonNull ChatHolder holder, int position) {
         Chat chatItem=mChats.get(position);
+        final String userId;
         if(chatItem.getUserOne().equals(mPreferenceManager.getUserId())){
-            holder.recipientTextView.setText(chatItem.getUserTwo());
+            userId=chatItem.getUserTwo();
         }else {
-            holder.recipientTextView.setText(chatItem.getUserOne());
+            userId=chatItem.getUserOne();
         }
+        FirebaseDatabase.getInstance()
+                .getReference(Constants.USER_REF)
+                .child(userId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        User user=dataSnapshot.getValue(User.class);
+                        GlideApp.with(mContext)
+                                .load(user.getPictureUrl())
+                                .placeholder(R.drawable.avater)
+                                .into(holder.recipientInitial);
+                        holder.recipientTextView.setText(user.getFirstName());
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
 
         holder.lastMessageTextView.setText(chatItem.getLastMessage());
         String lastUpdateTime= DateUtil.formatDate(chatItem.getLastUpdate());

@@ -16,47 +16,47 @@ import com.afomic.syndicate.util.GlideApp;
 import java.util.List;
 import java.util.Locale;
 
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.FriendViewHolder> {
+public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
     private Context mContext;
-    private List<User> mFriends;
-    private FriendListener mFriendListener;
-    public UserAdapter(Context context, List<User> friends, FriendListener friendListener){
+    private List<User> mUsers;
+    private UserListener mUserListener;
+    public UserAdapter(Context context, List<User> users, UserListener userListener){
         mContext=context;
-        mFriendListener=friendListener;
-        mFriends=friends;
+        mUserListener=userListener;
+        mUsers=users;
     }
     @NonNull
     @Override
-    public FriendViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v= LayoutInflater.from(mContext).inflate(R.layout.item_friend,parent,false);
-        return new FriendViewHolder(v);
+        return new UserViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FriendViewHolder holder, int position) {
-        User friend=mFriends.get(position);
+    public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
+        User user=mUsers.get(position);
         GlideApp.with(mContext)
-                .load(friend.getPictureUrl())
+                .load(user.getPictureUrl())
                 .placeholder(R.drawable.ic_person)
                 .into(holder.friendImageView);
-        holder.friendStatusTextView.setText(friend.getStatus());
-        String name=String.format(Locale.ENGLISH,"%s %s",friend.getFirstName(),friend.getLastName());
+        holder.friendStatusTextView.setText(user.getStatus());
+        String name=String.format(Locale.ENGLISH,"%s %s",user.getFirstName(),user.getLastName());
         holder.friendNameTextView.setText(name);
 
     }
 
     @Override
     public int getItemCount() {
-        if(mFriends!=null){
-            return mFriends.size();
+        if(mUsers!=null){
+            return mUsers.size();
         }
         return 0;
     }
 
-    public class FriendViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView friendImageView;
         TextView friendNameTextView,friendStatusTextView;
-        public FriendViewHolder(View itemView) {
+        public UserViewHolder(View itemView) {
             super(itemView);
             friendImageView=itemView.findViewById(R.id.imv_friend_picture);
             friendNameTextView=itemView.findViewById(R.id.tv_friend_name);
@@ -67,10 +67,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.FriendViewHold
         @Override
         public void onClick(View v) {
             int position=getAdapterPosition();
-            mFriendListener.onClick(mFriends.get(position));
+            mUserListener.onClick(mUsers.get(position));
         }
     }
-    public interface FriendListener{
+    public interface UserListener{
         void onClick(User friend);
     }
 }

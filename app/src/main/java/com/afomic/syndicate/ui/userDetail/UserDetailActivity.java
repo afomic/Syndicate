@@ -1,5 +1,6 @@
 package com.afomic.syndicate.ui.userDetail;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
@@ -11,9 +12,11 @@ import android.widget.TextView;
 
 import com.afomic.syndicate.R;
 import com.afomic.syndicate.base.BaseActivity;
+import com.afomic.syndicate.data.Constants;
 import com.afomic.syndicate.di.DependencyInjector;
 import com.afomic.syndicate.model.Chat;
 import com.afomic.syndicate.model.User;
+import com.afomic.syndicate.ui.messages.MessageActivity;
 
 import javax.inject.Inject;
 
@@ -90,7 +93,9 @@ public class UserDetailActivity extends BaseActivity implements UserDetailView{
 
     @Override
     public void showMessageView(Chat chat) {
-
+        Intent intent=new Intent(UserDetailActivity.this, MessageActivity.class);
+        intent.putExtra(Constants.EXTRA_CHAT,chat);
+        startActivity(intent);
     }
 
     @Override

@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.afomic.syndicate.R;
 import com.afomic.syndicate.Syndicate;
+import com.afomic.syndicate.base.BaseActivity;
 import com.afomic.syndicate.di.DependencyInjector;
 import com.afomic.syndicate.ui.ChatList.ChatListFragment;
 import com.afomic.syndicate.ui.FriendList.FriendListFragment;
@@ -24,7 +25,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements MainView{
+public class MainActivity extends BaseActivity implements MainView{
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawer;
     @BindView(R.id.navigation_view)
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements MainView{
 
     @Override
     public void showMessage(String message) {
-
+        showToast(message);
     }
 
     @Override

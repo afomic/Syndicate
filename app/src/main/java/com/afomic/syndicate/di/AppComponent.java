@@ -12,6 +12,7 @@ import com.afomic.syndicate.ui.profile.ProfileFragment;
 import com.afomic.syndicate.ui.profile.ProfileView;
 import com.afomic.syndicate.ui.signUp.SignUpActivity;
 import com.afomic.syndicate.ui.userDetail.UserDetailActivity;
+import com.afomic.syndicate.ui.userSearch.UserSearchActivity;
 import com.afomic.syndicate.ui.welcome.WelcomeActivity;
 import com.afomic.syndicate.ui.welcome.WelcomePresenter;
 
@@ -32,4 +33,5 @@ public interface AppComponent {
     void inject(ProfileFragment fragment);
     void inject(UserDetailActivity activity);
     void inject(MessageActivity activity);
+    void inject(UserSearchActivity activity);
 }

@@ -1,5 +1,7 @@
 package com.afomic.syndicate.ui.ChatList;
 
+import android.util.Log;
+
 import com.afomic.syndicate.base.BasePresenter;
 import com.afomic.syndicate.data.DataSource;
 import com.afomic.syndicate.data.PreferenceManager;
@@ -48,6 +50,11 @@ public class ChatListPresenter implements BasePresenter<ChatListView> {
             @Override
             public void onRemove(Chat data) {
 
+            }
+
+            @Override
+            public Class<Chat> getType() {
+                return Chat.class;
             }
 
             @Override
