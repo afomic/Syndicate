@@ -55,6 +55,7 @@ public class UserDetailActivity extends BaseActivity implements UserDetailView{
     public void setUpView() {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
     }
 
     @Override

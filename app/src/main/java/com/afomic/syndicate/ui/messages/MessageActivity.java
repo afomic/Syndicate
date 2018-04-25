@@ -54,6 +54,7 @@ public class MessageActivity extends BaseActivity implements MessageView {
     public void setUpView() {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
         mMessages=new LinkedList<>();
         mMessageAdapter=new MessageAdapter(MessageActivity.this,mMessages,false);
         messageRecyclerView.setLayoutManager(new LinearLayoutManager(MessageActivity.this));
@@ -93,7 +94,7 @@ public class MessageActivity extends BaseActivity implements MessageView {
     @Override
     public int getMessagePosition(Message message) {
         for(int i=0;i<mMessages.size();i++){
-            if(message.getId().equals(mMessages.get(i).getChatId())){
+            if(message.getId().equals(mMessages.get(i).getId())){
                 return i;
             }
         }

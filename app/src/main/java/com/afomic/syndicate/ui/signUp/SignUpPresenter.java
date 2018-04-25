@@ -34,8 +34,8 @@ public class SignUpPresenter implements BasePresenter<SignUpView> {
                 &&isValidLastName(lastName)){
             User user=new User();
             user.setTimeCreated(System.currentTimeMillis());
-            user.setFirstName(firstName);
-            user.setLastName(lastName);
+            user.setFirstName(firstName.toLowerCase());
+            user.setLastName(lastName.toLowerCase());
             user.setStatus("New User");
             mSignUpView.showProgressBar();
             mAuthManager.createUser(user, email, password, new AuthManager.AuthManagerCallback() {

@@ -56,7 +56,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <TextView
-                            android:text="this is a ranom text"
+                            android:text="this is a random text"
                             android:id="@+id/tv_user_status"
                             android:layout_below="@id/tv_status_title"
                             android:padding="@dimen/content_text_padding"
@@ -92,6 +92,8 @@
                     android:text="@string/add_friend_title"
                     android:id="@+id/btn_add_friend"
                     android:layout_margin="@dimen/button_margin"
+                    android:textColor="@color/colorWhite"
+                    android:background="@android:color/holo_blue_dark"
                     android:layout_gravity="center_horizontal"
                     android:layout_width="@dimen/button_width"
                     android:layout_height="wrap_content" />
@@ -100,6 +102,8 @@
                     android:id="@+id/btn_chat"
                     android:visibility="visible"
                     android:layout_margin="@dimen/button_margin"
+                    android:textColor="@color/colorWhite"
+                    android:background="@android:color/holo_red_dark"
                     android:layout_gravity="center_horizontal"
                     android:layout_width="@dimen/button_width"
                     android:layout_height="wrap_content" />

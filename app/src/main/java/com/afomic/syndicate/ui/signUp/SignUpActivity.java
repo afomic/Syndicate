@@ -61,6 +61,7 @@ public class SignUpActivity extends BaseActivity implements SignUpView {
     public void setUpView(){
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
     }
 
     @Override

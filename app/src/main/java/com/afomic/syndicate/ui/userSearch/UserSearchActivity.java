@@ -63,6 +63,7 @@ public class UserSearchActivity extends BaseActivity implements UserSearchView,U
         userRecyclerView.setAdapter(mUserAdapter);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
     }
 
     @Override

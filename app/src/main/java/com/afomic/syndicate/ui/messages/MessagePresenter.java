@@ -76,6 +76,10 @@ public class MessagePresenter implements BasePresenter<MessageView> {
 
     }
     public void sendMessage(String message){
+        if(message.equals("")){
+            mMessageView.showMessage("empty message");
+            return;
+        }
         mMessageView.resetChatBox();
         Message item=new Message();
         item.setChatId(currentChat.getId());
