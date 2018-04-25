@@ -21,16 +21,12 @@ import com.afomic.syndicate.model.User;
 import com.afomic.syndicate.ui.messages.MessageActivity;
 import com.afomic.syndicate.util.DateUtil;
 import com.afomic.syndicate.util.GlideApp;
-import com.amulyakhare.textdrawable.TextDrawable;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.inject.Inject;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -77,7 +73,7 @@ public class ChatAdapter  extends RecyclerView.Adapter<ChatAdapter.ChatHolder>{
                                 .load(user.getPictureUrl())
                                 .placeholder(R.drawable.avater)
                                 .into(holder.recipientInitial);
-                        holder.recipientTextView.setText(user.getFirstName());
+                        holder.recipientTextView.setText(user.getUsername());
                     }
 
                     @Override

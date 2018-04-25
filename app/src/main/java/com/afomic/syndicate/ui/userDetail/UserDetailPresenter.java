@@ -59,25 +59,4 @@ public class UserDetailPresenter implements BasePresenter<UserDetailView> {
                     }
                 });
     }
-    public void addFriend(){
-        mUserDetailView.showProgressBar();
-        mDataSource.addFriend(mPreferenceManager.getUserId(),
-                mCurrentUser.getId(), new SingleItemDataSourceCallback<User>() {
-                    @Override
-                    public void onSuccess(User response) {
-                        mUserDetailView.hideProgressBar();
-                        mUserDetailView.disableAddFriend();
-                    }
-
-                    @Override
-                    public void onFailure(String message) {
-                        mUserDetailView.showMessage(message);
-                    }
-
-                    @Override
-                    public void hasChildren(boolean hasChild) {
-
-                    }
-                });
-    }
 }

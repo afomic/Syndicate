@@ -10,7 +10,8 @@
         <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
             android:id="@+id/toolbar"
-            app:titleTextColor="@color/colorWhite"
+            android:theme="@style/ThemeOverlay.AppCompat.Light"
+            android:background="@color/colorWhite"
             android:layout_height="wrap_content"/>
     </android.support.design.widget.AppBarLayout>
     <RelativeLayout

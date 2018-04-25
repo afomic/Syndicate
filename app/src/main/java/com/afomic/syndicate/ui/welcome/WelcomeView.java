@@ -4,5 +4,5 @@ import com.afomic.syndicate.base.BaseView;
 
 public interface WelcomeView extends BaseView {
     void showHomeView();
-    void showLoginView();
+    void showLoadingLayout();
 }

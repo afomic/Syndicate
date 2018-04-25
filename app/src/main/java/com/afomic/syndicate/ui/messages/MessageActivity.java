@@ -1,5 +1,6 @@
 package com.afomic.syndicate.ui.messages;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -56,9 +57,17 @@ public class MessageActivity extends BaseActivity implements MessageView {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
         mMessages=new LinkedList<>();
-        mMessageAdapter=new MessageAdapter(MessageActivity.this,mMessages,false);
+        mMessageAdapter=new MessageAdapter(MessageActivity.this,mMessages,darkTheme);
         messageRecyclerView.setLayoutManager(new LinearLayoutManager(MessageActivity.this));
         messageRecyclerView.setAdapter(mMessageAdapter);
+        if(darkTheme){
+            messageEditText.setTextColor(Color.BLACK);
+        }
+    }
+
+    @Override
+    public void setToolbarTitle(String title) {
+        setTitle(title);
     }
 
     @Override
@@ -105,10 +114,29 @@ public class MessageActivity extends BaseActivity implements MessageView {
     public void ShowConversation(Message message) {
         mMessages.add(message);
         mMessageAdapter.notifyItemInserted(mMessages.size());
+        scrollToTheLastItem();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mMessagePresenter.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mMessagePresenter.onResume();
     }
 
     @Override
     public void resetChatBox() {
         messageEditText.setText("");
+    }
+
+    public void scrollToTheLastItem(){
+        int lastItemCount=mMessages.size()-1;
+        mMessageAdapter.notifyItemInserted(lastItemCount);
+        messageRecyclerView.scrollToPosition(lastItemCount);
     }
 }

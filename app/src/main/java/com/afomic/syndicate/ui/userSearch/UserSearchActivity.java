@@ -63,7 +63,7 @@ public class UserSearchActivity extends BaseActivity implements UserSearchView,U
         userRecyclerView.setAdapter(mUserAdapter);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_black);
     }
 
     @Override
@@ -122,8 +122,9 @@ public class UserSearchActivity extends BaseActivity implements UserSearchView,U
         getMenuInflater().inflate(R.menu.menu_user_search,menu);
         MenuItem mItem=menu.findItem(R.id.menu_search_view);
         SearchView userSearchView=(SearchView) MenuItemCompat.getActionView(mItem);
-        userSearchView.setIconifiedByDefault(false);
         ImageView mImage= userSearchView.findViewById(android.support.v7.appcompat.R.id.search_mag_icon);
+        userSearchView.setIconified(false);
+        userSearchView.setIconifiedByDefault(false);
         mImage.setVisibility(View.GONE);
         mImage.setImageDrawable(null);
         userSearchView.setQueryHint("Search User");

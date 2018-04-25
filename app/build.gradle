@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.afomic.syndicate"
-        minSdkVersion 15
+        minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -41,7 +41,8 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
-    implementation "com.amulyakhare:com.amulyakhare.textdrawable:1.0.1"
+    implementation "com.android.support:preference-v7:$supportVersion"
+    implementation "com.android.support:preference-v14:$supportVersion"
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -33,8 +33,6 @@ public class UserDetailActivity extends BaseActivity implements UserDetailView{
     TextView statusTextView;
     @BindView(R.id.btn_chat)
     Button chatButton;
-    @BindView(R.id.btn_add_friend)
-    Button addFriendButton;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @Inject
@@ -56,6 +54,8 @@ public class UserDetailActivity extends BaseActivity implements UserDetailView{
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
+
+
     }
 
     @Override
@@ -80,13 +80,9 @@ public class UserDetailActivity extends BaseActivity implements UserDetailView{
     @Override
     public void showUserDetails(User user) {
         statusTextView.setText(user.getStatus());
-        usernameTextView.setText(user.getFirstName());
+        usernameTextView.setText(user.getUsername());
     }
 
-    @OnClick(R.id.btn_add_friend)
-    public void addFriend(){
-        mUserDetailPresenter.addFriend();
-    }
     @OnClick(R.id.btn_chat)
     public void createChat(){
         mUserDetailPresenter.startChat();
@@ -101,12 +97,7 @@ public class UserDetailActivity extends BaseActivity implements UserDetailView{
 
     @Override
     public void enableControls(boolean enable) {
-        addFriendButton.setEnabled(enable);
         chatButton.setEnabled(enable);
     }
 
-    @Override
-    public void disableAddFriend() {
-        addFriendButton.setEnabled(false);
-    }
 }

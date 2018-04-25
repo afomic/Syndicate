@@ -14,7 +14,6 @@ import com.afomic.syndicate.model.User;
 import com.afomic.syndicate.util.GlideApp;
 
 import java.util.List;
-import java.util.Locale;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
     private Context mContext;
@@ -28,7 +27,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(mContext).inflate(R.layout.item_friend,parent,false);
+        View v= LayoutInflater.from(mContext).inflate(R.layout.item_user,parent,false);
         return new UserViewHolder(v);
     }
 
@@ -40,7 +39,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                 .placeholder(R.drawable.ic_person)
                 .into(holder.friendImageView);
         holder.friendStatusTextView.setText(user.getStatus());
-        String name=String.format(Locale.ENGLISH,"%s %s",user.getFirstName(),user.getLastName());
+        String name=String.format(user.getUsername());
         holder.friendNameTextView.setText(name);
 
     }

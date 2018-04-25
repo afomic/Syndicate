@@ -8,13 +8,13 @@
             android:icon="@drawable/ic_chat"
             android:checked="true"/>
         <item
-            android:title="Friends"
-            android:id="@+id/menu_friends"
-            android:icon="@drawable/ic_list"/>
-        <item
             android:title="Profile"
             android:icon="@drawable/ic_person"
             android:id="@+id/menu_profile"/>
+        <item
+            android:title="Settings"
+            android:icon="@drawable/ic_settings"
+            android:id="@+id/menu_settings"/>
     </group>
 
 </menu>

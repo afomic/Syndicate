@@ -18,8 +18,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.signUp.SignUpActivity"/>
-        <activity android:name=".ui.login.LoginActivity"/>
         <activity android:name=".ui.userDetail.UserDetailActivity"/>
         <activity android:name=".ui.messages.MessageActivity"/>
         <activity android:name=".ui.userSearch.UserSearchActivity"/>

@@ -33,8 +33,8 @@ public class MainPresenter implements BasePresenter<MainView> {
             case R.id.menu_chats:
                 mMainView.showChatListView();
                 break;
-            case R.id.menu_friends:
-                mMainView.showFriendListView();
+            case R.id.menu_settings:
+                mMainView.showSettingsView();
                 break;
             case R.id.menu_profile:
                 mMainView.showProfileView();

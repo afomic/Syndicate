@@ -9,6 +9,9 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -21,6 +24,7 @@ import com.afomic.syndicate.data.Constants;
 import com.afomic.syndicate.di.DependencyInjector;
 import com.afomic.syndicate.model.Chat;
 import com.afomic.syndicate.ui.messages.MessageActivity;
+import com.afomic.syndicate.ui.userSearch.UserSearchActivity;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -55,6 +59,7 @@ public class ChatListFragment extends Fragment implements ChatListView {
                 .applicationComponent()
                 .inject(this);
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Nullable
@@ -78,13 +83,19 @@ public class ChatListFragment extends Fragment implements ChatListView {
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_add_friend,menu);
+    }
+
+    @Override
     public void showMessage(String message) {
         Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showProgressBar() {
-        if(!mProgressBar.isShown()){
+        if(mProgressBar!=null&&!mProgressBar.isShown()){
             mProgressBar.setVisibility(View.VISIBLE);
         }
 
@@ -92,7 +103,7 @@ public class ChatListFragment extends Fragment implements ChatListView {
 
     @Override
     public void hideProgressBar() {
-        if(mProgressBar.isShown()){
+        if(mProgressBar!=null&&mProgressBar.isShown()){
             mProgressBar.setVisibility(View.GONE);
         }
     }
@@ -106,14 +117,14 @@ public class ChatListFragment extends Fragment implements ChatListView {
 
     @Override
     public void showEmptyView() {
-        if(!mEmptyPageLayout.isShown()){
+        if(mEmptyPageLayout!=null&&!mEmptyPageLayout.isShown()){
             mEmptyPageLayout.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public void hideEmptyView() {
-        if(mEmptyPageLayout.isShown()){
+        if(mEmptyPageLayout!=null&&mEmptyPageLayout.isShown()){
             mEmptyPageLayout.setVisibility(View.GONE);
         }
     }
@@ -125,11 +136,18 @@ public class ChatListFragment extends Fragment implements ChatListView {
     }
 
     @Override
+    public void showSearchUserView() {
+        Intent intent=new Intent(getActivity(), UserSearchActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
     public void updateChat(Chat chat, int position) {
         mChats.remove(position);
         mChats.add(position,chat);
         mChatAdapter.notifyItemChanged(position);
     }
+
 
     @Override
     public int getChatPosition(Chat chat) {
@@ -141,4 +159,9 @@ public class ChatListFragment extends Fragment implements ChatListView {
         return -1;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        mChatListPresenter.handleMenuItemSelected(item);
+        return super.onOptionsItemSelected(item);
+    }
 }

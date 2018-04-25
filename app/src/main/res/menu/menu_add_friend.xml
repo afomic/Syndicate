@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 <item android:id="@+id/menu_search"
-    android:title="Search Friend"
+    android:title="add chat"
     app:showAsAction="always"
-    android:icon="@drawable/ic_search"/>
+    android:icon="@drawable/ic_add"/>
 </menu>

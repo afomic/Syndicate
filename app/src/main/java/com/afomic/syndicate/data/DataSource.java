@@ -3,7 +3,6 @@ package com.afomic.syndicate.data;
 import android.support.annotation.NonNull;
 
 import com.afomic.syndicate.model.Chat;
-import com.afomic.syndicate.model.Friendship;
 import com.afomic.syndicate.model.Message;
 import com.afomic.syndicate.model.User;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -16,9 +15,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -35,7 +32,7 @@ public class DataSource {
         DatabaseReference chatRef=mFirebaseDatabase
                 .getReference(Constants.CHATS_REF)
                 .child(userId);
-        chatRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        chatRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 callback.hasChildren(dataSnapshot.hasChildren());
@@ -52,7 +49,7 @@ public class DataSource {
     public void getMessage(String chatId,final RealTimeDataSourceCallback<Message> callback){
         DatabaseReference messageRef= mFirebaseDatabase.getReference(Constants.MESSAGES_REF)
                 .child(chatId);
-        messageRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        messageRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 callback.hasChildren(dataSnapshot.hasChildren());
@@ -86,48 +83,6 @@ public class DataSource {
                     }
                 });
     }
-    public void getFriends(String userId, final ListDataSourceCallback<User> callback){
-        final List<User> friends=new ArrayList<>();
-        mFirebaseDatabase.getReference(Constants.FRIENDS_REF)
-                .child(userId)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        callback.hasChildren(dataSnapshot.hasChildren());
-                        final long totalFriendCount=dataSnapshot.getChildrenCount();
-                        for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                            final Friendship friendship =snapshot.getValue(Friendship.class);
-                            FirebaseDatabase.getInstance()
-                                    .getReference(Constants.USER_REF)
-                                    .child(friendship.getUserID())
-                                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                            User user=dataSnapshot.getValue(User.class);
-                                            friends.add(user);
-                                            //all user has been fetched for friends
-                                            if(friends.size()==totalFriendCount){
-                                                callback.onSuccess(friends);
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-                                            if(friends.size()==totalFriendCount){
-                                                callback.onFailure(databaseError.getMessage());
-                                            }
-                                        }
-                                    });
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        callback.onFailure(databaseError.getMessage());
-                    }
-                });
-
-    }
 
     public void getUser(String userId, final SingleItemDataSourceCallback<User> callback){
         mFirebaseDatabase.getReference(Constants.USER_REF)
@@ -147,7 +102,7 @@ public class DataSource {
     }
     public void searchUser(String query, final ListDataSourceCallback<User> callback){
         mFirebaseDatabase.getReference(Constants.USER_REF)
-                .orderByChild("firstName")
+                .orderByChild("username")
                 .equalTo(query)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -165,41 +120,6 @@ public class DataSource {
                         callback.onFailure(databaseError.getMessage());
                     }
                 });
-    }
-    public void addFriend(String userOne, final String userTwo, final SingleItemDataSourceCallback<User> callback){
-        Friendship friendshipOne=new Friendship(userTwo);
-        final Friendship friendshipTwo=new Friendship(userOne);
-        String id1=mFirebaseDatabase.getReference(Constants.FRIENDS_REF)
-                .child(userOne)
-                .push()
-                .getKey();
-        friendshipOne.setId(id1);
-        String id2=mFirebaseDatabase.getReference(Constants.FRIENDS_REF)
-                .child(userTwo)
-                .push()
-                .getKey();
-        friendshipTwo.setId(id2);
-        mFirebaseDatabase.getReference(Constants.FRIENDS_REF)
-                .child(userOne)
-                .child(friendshipOne.getId())
-                .setValue(friendshipOne)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        mFirebaseDatabase.getReference(Constants.FRIENDS_REF)
-                                .child(userTwo)
-                                .child(friendshipTwo.getId())
-                                .setValue(friendshipTwo);
-                        callback.onSuccess(null);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                callback.onFailure(e.getMessage());
-            }
-        });
-
-
     }
     public void startChat(String userOne, final String userTwo, final SingleItemDataSourceCallback<Chat> callback){
         String[] ids={userOne,userTwo};

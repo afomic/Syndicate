@@ -10,6 +10,7 @@ import com.afomic.syndicate.data.RealTimeDataSourceCallback;
 import com.afomic.syndicate.data.SingleItemDataSourceCallback;
 import com.afomic.syndicate.model.Chat;
 import com.afomic.syndicate.model.Message;
+import com.afomic.syndicate.model.User;
 
 import javax.inject.Inject;
 
@@ -69,6 +70,28 @@ public class MessagePresenter implements BasePresenter<MessageView> {
                 mMessageView.hideProgressBar();
             }
         });
+        final String userId;
+        if(currentChat.getUserOne().equals(mPreferenceManager.getUserId())){
+            userId=currentChat.getUserTwo();
+        }else {
+            userId=currentChat.getUserOne();
+        }
+        mDataSource.getUser(userId, new SingleItemDataSourceCallback<User>() {
+            @Override
+            public void onSuccess(User response) {
+                mMessageView.setToolbarTitle(response.getUsername());
+            }
+
+            @Override
+            public void onFailure(String message) {
+
+            }
+
+            @Override
+            public void hasChildren(boolean hasChild) {
+
+            }
+        });
     }
 
     @Override
@@ -104,5 +127,11 @@ public class MessagePresenter implements BasePresenter<MessageView> {
 
             }
         });
+    }
+    public void onPause(){
+        mPreferenceManager.setCurrentChatId("");
+    }
+    public void onResume(){
+        mPreferenceManager.setCurrentChatId(currentChat.getId());
     }
 }

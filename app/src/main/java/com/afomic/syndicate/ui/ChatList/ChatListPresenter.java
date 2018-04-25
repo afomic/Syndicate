@@ -1,12 +1,21 @@
 package com.afomic.syndicate.ui.ChatList;
 
 import android.util.Log;
+import android.view.MenuItem;
 
+import com.afomic.syndicate.R;
 import com.afomic.syndicate.base.BasePresenter;
+import com.afomic.syndicate.data.Constants;
 import com.afomic.syndicate.data.DataSource;
 import com.afomic.syndicate.data.PreferenceManager;
 import com.afomic.syndicate.data.RealTimeDataSourceCallback;
 import com.afomic.syndicate.model.Chat;
+import com.afomic.syndicate.model.User;
+import com.afomic.syndicate.util.GlideApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import javax.inject.Inject;
 
@@ -68,6 +77,11 @@ public class ChatListPresenter implements BasePresenter<ChatListView> {
             }
         };
         mDataSource.getChats(mPreferenceManager.getUserId(), mChatRealTimeDataSourceCallback);
+    }
+    public void handleMenuItemSelected(MenuItem item){
+        if(item.getItemId()== R.id.menu_search){
+            mChatListView.showSearchUserView();
+        }
     }
     @Override
     public void dropView() {

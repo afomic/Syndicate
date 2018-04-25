@@ -7,6 +7,7 @@ import com.afomic.syndicate.model.Chat;
 public interface ChatListView extends BaseView {
     void showEmptyView();
     void hideEmptyView();
+    void showSearchUserView();
     void addChat(Chat chat);
     void updateChat(Chat chat, int position);
     int getChatPosition(Chat chat);

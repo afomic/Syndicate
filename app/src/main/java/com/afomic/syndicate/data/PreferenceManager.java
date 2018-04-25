@@ -13,6 +13,7 @@ public class PreferenceManager {
     private static final String PREFERENCE_FILE_NAME="com.example.afomic.syndicate";
     private static final String PREF_USER_IS_LOGGED_IN="has_account";
     private static final String PREF_USER_ID="user_id";
+    private static final String PREF_CURRENT_CHAT_ID="chat_id";
 
     @Inject
     public PreferenceManager(Context context){
@@ -35,5 +36,14 @@ public class PreferenceManager {
 
     public String getUserId(){
         return mSharedPreferences.getString(PREF_USER_ID,"no_user");
+    }
+
+    public void setCurrentChatId(String chatId){
+        SharedPreferences.Editor mEditor=mSharedPreferences.edit();
+        mEditor.putString(PREF_CURRENT_CHAT_ID,chatId);
+        mEditor.apply();
+    }
+    public String getCurrentChatId(){
+        return mSharedPreferences.getString(PREF_CURRENT_CHAT_ID,"chat_id");
     }
 }

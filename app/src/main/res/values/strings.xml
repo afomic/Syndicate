@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Syndicate</string>
+    <string name="key_dark_theme">dark_theme</string>
+    <string name="title_dark_theme">Dark Theme</string>
     <string name="chat_entry_title">Type message</string>
     <string name="email_edit_text_hint">Email</string>
     <string name="password_edit_text_hint">Password</string>

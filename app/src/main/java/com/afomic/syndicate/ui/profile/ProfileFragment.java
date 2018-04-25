@@ -57,7 +57,7 @@ public class ProfileFragment extends Fragment implements ProfileView {
     @Override
     public void showProfile(User user) {
         statusTextView.setText(user.getStatus());
-        usernameTextView.setText(user.getFirstName());
+        usernameTextView.setText(user.getUsername());
     }
 
     @Override

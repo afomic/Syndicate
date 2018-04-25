@@ -5,8 +5,7 @@ import android.os.Parcelable;
 
 public class User implements Parcelable{
     private String id;
-    private String firstName;
-    private String lastName;
+    private String username;
     private String status;
     private long timeCreated;
     private String pictureUrl;
@@ -16,8 +15,7 @@ public class User implements Parcelable{
 
     protected User(Parcel in) {
         id = in.readString();
-        firstName = in.readString();
-        lastName = in.readString();
+        username = in.readString();
         status = in.readString();
         timeCreated = in.readLong();
         pictureUrl = in.readString();
@@ -43,8 +41,7 @@ public class User implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
-        dest.writeString(firstName);
-        dest.writeString(lastName);
+        dest.writeString(username);
         dest.writeString(status);
         dest.writeLong(timeCreated);
         dest.writeString(pictureUrl);
@@ -58,20 +55,12 @@ public class User implements Parcelable{
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setUsername(String firstName) {
+        this.username = firstName;
     }
 
     public String getStatus() {

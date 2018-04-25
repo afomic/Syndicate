@@ -9,6 +9,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Random;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -21,14 +23,21 @@ public class AuthManager {
     public AuthManager(){
        mFirebaseAuth=FirebaseAuth.getInstance();
     }
-    public void login(String email, String password, final AuthManagerCallback authManagerCallback){
-        mFirebaseAuth.signInWithEmailAndPassword(email,password)
+    public void signUp(final AuthManagerCallback authManagerCallback){
+        mFirebaseAuth.signInAnonymously()
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        authManagerCallback.onSuccess();
+                        String id=authResult.getUser().getUid();
+                        User user=new User();
+                        user.setId(id);
+                        String username="User-"+getRandomString();
+                        user.setUsername(username);
+                        user.setStatus("I am a new User");
+                        user.setTimeCreated(System.currentTimeMillis());
+                        saveUser(user,authManagerCallback);
                         mPreferenceManager.setLoggedIn(true);
-                        mPreferenceManager.setUserId(authResult.getUser().getUid());
+                        mPreferenceManager.setUserId(id);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -41,24 +50,6 @@ public class AuthManager {
     public void logout(){
         mFirebaseAuth.signOut();
         mPreferenceManager.setLoggedIn(false);
-    }
-    public void createUser(final User user, String email, String password,
-                           final AuthManagerCallback authManagerCallback){
-        mFirebaseAuth.createUserWithEmailAndPassword(email,password)
-                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                        String id=authResult.getUser().getUid();
-                        user.setId(id);
-                        saveUser(user,authManagerCallback);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                authManagerCallback.onFailure(e.getMessage());
-            }
-        });
-
     }
     private void saveUser(final User user, final AuthManagerCallback callback){
         FirebaseDatabase.getInstance()
@@ -82,5 +73,16 @@ public class AuthManager {
     public interface AuthManagerCallback{
         void onSuccess();
         void onFailure(String message);
+    }
+    public static String getRandomString() {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 6) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        return salt.toString();
+
     }
 }
