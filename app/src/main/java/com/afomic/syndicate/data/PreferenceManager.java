@@ -14,6 +14,7 @@ public class PreferenceManager {
     private static final String PREF_USER_IS_LOGGED_IN="has_account";
     private static final String PREF_USER_ID="user_id";
     private static final String PREF_CURRENT_CHAT_ID="chat_id";
+    private static  final String PREF_UNIQUE_ID="chat_id";
 
     @Inject
     public PreferenceManager(Context context){
@@ -27,6 +28,14 @@ public class PreferenceManager {
 
     public boolean isLoggedIn(){
         return mSharedPreferences.getBoolean(PREF_USER_IS_LOGGED_IN,false);
+    }
+    public void setUniqueId(String uniqueId){
+        SharedPreferences.Editor mEditor=mSharedPreferences.edit();
+        mEditor.putString(PREF_UNIQUE_ID,uniqueId);
+        mEditor.apply();
+    }
+    public String getUniqueId(){
+        return mSharedPreferences.getString(PREF_USER_ID,"id");
     }
     public void setUserId(String userId){
         SharedPreferences.Editor mEditor=mSharedPreferences.edit();

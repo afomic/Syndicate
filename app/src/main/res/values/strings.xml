@@ -16,4 +16,5 @@
     <string name="friends_empty_view_message">You currently have no Friend</string>
     <string name="add_friend_title">Add As Friend</string>
     <string name="btn_chat_title">Chat Up</string>
+    <string name="user_search_empty_message">Cannot Find User</string>
 </resources>
