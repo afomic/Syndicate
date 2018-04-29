@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -7,6 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:id="@+id/image_layout"
         android:layout_height="300dp">
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imv_user_picture"
@@ -24,6 +25,8 @@
     </RelativeLayout>
     <android.support.v7.widget.CardView
         android:layout_margin="@dimen/container_margin"
+        android:layout_below="@id/image_layout"
+        android:id="@+id/user_id_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
@@ -47,6 +50,8 @@
     </android.support.v7.widget.CardView>
     <android.support.v7.widget.CardView
         android:layout_margin="@dimen/container_margin"
+        android:layout_below="@id/username_layout"
+        android:id="@+id/status_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RelativeLayout
@@ -60,10 +65,12 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <ImageView
+            <ImageButton
+                android:background="?attr/selectableItemBackground"
                 android:src="@drawable/ic_edit"
                 android:layout_alignParentRight="true"
                 android:padding="@dimen/icon_padding"
+                android:id="@+id/btn_edit_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
@@ -77,6 +84,8 @@
     </android.support.v7.widget.CardView>
     <android.support.v7.widget.CardView
         android:layout_margin="@dimen/container_margin"
+        android:layout_below="@id/user_id_layout"
+        android:id="@+id/username_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RelativeLayout
@@ -90,15 +99,16 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <ImageView
+            <ImageButton
                 android:src="@drawable/ic_edit"
                 android:layout_alignParentRight="true"
                 android:padding="@dimen/icon_padding"
-                android:id="@+id/imv_edit_name"
+                android:background="?attr/selectableItemBackground"
+                android:id="@+id/btn_edit_display_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <LinearLayout
-                android:layout_below="@id/imv_edit_name"
+                android:layout_below="@id/btn_edit_display_name"
                 android:orientation="horizontal"
                 android:padding="@dimen/content_text_padding"
                 android:layout_width="match_parent"
@@ -111,12 +121,19 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
                 <TextView
-                    android:text="Afolabi Michael"
+                    android:text="Afomic"
                     android:id="@+id/tv_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
+    <ProgressBar
+        android:visibility="gone"
+        android:elevation="4dp"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:id="@+id/progress_bar"
+        android:layout_height="wrap_content" />
 
-</LinearLayout>
+</RelativeLayout>

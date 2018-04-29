@@ -40,7 +40,7 @@ public class MainPresenter implements BasePresenter<MainView> {
                 if(mPreferenceManager.hasMultipleAccount()){
                     mMainView.showMultipleAccountView();
                 }else {
-                    mMainView.showProfileView();
+                    mMainView.showProfileView(mPreferenceManager.getUserId());
                 }
                 break;
         }

@@ -28,6 +28,7 @@ public class UserDataSource {
     }
     public void getUser(String userId, final SingleItemDataSourceCallback<User> callback){
         mFirebaseDatabase.getReference(Constants.USER_REF)
+                .child(mPreferenceManager.getUniqueId())
                 .child(userId)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -42,18 +43,37 @@ public class UserDataSource {
                     }
                 });
     }
+    public void setUserDetail(String userId, String key, String value, final SingleItemDataSourceCallback<Boolean> callback){
+        mFirebaseDatabase.getReference(Constants.USER_REF)
+                .child(mPreferenceManager.getUniqueId())
+                .child(userId)
+                .child(key)
+                .setValue(value)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        callback.onSuccess(true);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                callback.onFailure(e.getMessage());
+            }
+        });
+    }
     public void saveUser(String AccountUniqueId, final SingleItemDataSourceCallback<Boolean> callback){
         User user=new User();
         DatabaseReference userDataBaseRef=mFirebaseDatabase.getReference(Constants.USER_REF)
-                .child(AccountUniqueId)
-                .push();
-        String userId=userDataBaseRef.getKey();
+                .child(AccountUniqueId);
+        String userId=userDataBaseRef.push().getKey();
         user.setId(userId);
         String username="User-"+getRandomString(6);
         user.setUsername(username);
         user.setTimeCreated(System.currentTimeMillis());
         user.setStatus("I am a new User");
-        userDataBaseRef.setValue(user)
+        userDataBaseRef
+                .child(userId)
+                .setValue(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

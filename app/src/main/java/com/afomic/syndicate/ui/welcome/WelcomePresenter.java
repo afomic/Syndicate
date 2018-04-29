@@ -1,5 +1,7 @@
 package com.afomic.syndicate.ui.welcome;
 
+import android.util.Log;
+
 import com.afomic.syndicate.base.BasePresenter;
 import com.afomic.syndicate.data.AuthManager;
 import com.afomic.syndicate.data.PreferenceManager;
@@ -15,7 +17,6 @@ public class WelcomePresenter implements BasePresenter<WelcomeView> {
     private WelcomeView mWelcomeView;
     @Inject
     public WelcomePresenter(){
-        mPreferenceManager.setUniqueId(UserDataSource.getRandomString(16));
     }
     @Override
     public void takeView(WelcomeView view) {
@@ -28,8 +29,9 @@ public class WelcomePresenter implements BasePresenter<WelcomeView> {
     }
     public void showNextActivity(){
         if(!mPreferenceManager.isLoggedIn()){
+            mPreferenceManager.setUniqueId(UserDataSource.getRandomString(16));
             mWelcomeView.showLoadingLayout();
-            mAuthManager.signUp(mPreferenceManager.getUniqueId(),new AuthManager.AuthManagerCallback() {
+            mAuthManager.signUp(new AuthManager.AuthManagerCallback() {
                 @Override
                 public void onSuccess() {
                     mWelcomeView.showHomeView();

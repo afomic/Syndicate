@@ -36,8 +36,9 @@ public class PreferenceManager {
         mEditor.apply();
     }
     public String getUniqueId(){
-        return mSharedPreferences.getString(PREF_USER_ID,"id");
+        return mSharedPreferences.getString(PREF_UNIQUE_ID,"id");
     }
+
     public void setHasMultipleAccount(boolean hasMultipleAccount){
         SharedPreferences.Editor mEditor=mSharedPreferences.edit();
         mEditor.putBoolean(PREF_HAS_MULTIPLE_ACCOUNT,hasMultipleAccount);

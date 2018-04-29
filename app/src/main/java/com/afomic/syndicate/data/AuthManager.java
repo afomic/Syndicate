@@ -23,7 +23,7 @@ public class AuthManager {
     public AuthManager(){
        mFirebaseAuth=FirebaseAuth.getInstance();
     }
-    public void signUp(String uniqueId,final AuthManagerCallback authManagerCallback){
+    public void signUp(final AuthManagerCallback authManagerCallback){
         mFirebaseAuth.signInAnonymously()
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
@@ -54,6 +54,7 @@ public class AuthManager {
     private void saveUser(final User user, final AuthManagerCallback callback){
         FirebaseDatabase.getInstance()
                 .getReference(Constants.USER_REF)
+                .child(mPreferenceManager.getUniqueId())
                 .child(user.getId())
                 .setValue(user)
                 .addOnFailureListener(new OnFailureListener() {
