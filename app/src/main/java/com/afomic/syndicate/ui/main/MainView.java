@@ -6,4 +6,5 @@ public interface MainView extends BaseView {
     void showProfileView();
     void showChatListView();
     void showSettingsView();
+    void showMultipleAccountView();
 }

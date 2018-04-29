@@ -23,7 +23,7 @@ public class AuthManager {
     public AuthManager(){
        mFirebaseAuth=FirebaseAuth.getInstance();
     }
-    public void signUp(final AuthManagerCallback authManagerCallback){
+    public void signUp(String uniqueId,final AuthManagerCallback authManagerCallback){
         mFirebaseAuth.signInAnonymously()
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override

@@ -4,19 +4,22 @@ import android.content.Intent;
 
 import com.afomic.syndicate.base.BasePresenter;
 import com.afomic.syndicate.data.Constants;
-import com.afomic.syndicate.data.DataSource;
 import com.afomic.syndicate.data.PreferenceManager;
 import com.afomic.syndicate.data.RealTimeDataSourceCallback;
 import com.afomic.syndicate.data.SingleItemDataSourceCallback;
 import com.afomic.syndicate.model.Chat;
 import com.afomic.syndicate.model.Message;
 import com.afomic.syndicate.model.User;
+import com.afomic.syndicate.data.ChatDataSource;
+import com.afomic.syndicate.data.UserDataSource;
 
 import javax.inject.Inject;
 
 public class MessagePresenter implements BasePresenter<MessageView> {
     @Inject
-    DataSource mDataSource;
+    ChatDataSource mDataSource;
+    @Inject
+    UserDataSource  mUserDataSource;
     @Inject
     PreferenceManager mPreferenceManager;
     private MessageView mMessageView;
@@ -76,7 +79,7 @@ public class MessagePresenter implements BasePresenter<MessageView> {
         }else {
             userId=currentChat.getUserOne();
         }
-        mDataSource.getUser(userId, new SingleItemDataSourceCallback<User>() {
+        mUserDataSource.getUser(userId, new SingleItemDataSourceCallback<User>() {
             @Override
             public void onSuccess(User response) {
                 mMessageView.setToolbarTitle(response.getUsername());

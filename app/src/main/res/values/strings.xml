@@ -17,4 +17,5 @@
     <string name="add_friend_title">Add As Friend</string>
     <string name="btn_chat_title">Chat Up</string>
     <string name="user_search_empty_message">Cannot Find User</string>
+    <string name="buttion_set_user_title">set user account</string>
 </resources>

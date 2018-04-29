@@ -16,6 +16,7 @@ import com.afomic.syndicate.R;
 import com.afomic.syndicate.base.BaseActivity;
 import com.afomic.syndicate.di.DependencyInjector;
 import com.afomic.syndicate.ui.ChatList.ChatListFragment;
+import com.afomic.syndicate.ui.multipleAccount.MultipleAccountFragment;
 import com.afomic.syndicate.ui.preference.SettingsFragment;
 import com.afomic.syndicate.ui.profile.ProfileFragment;
 
@@ -71,7 +72,7 @@ public class MainActivity extends BaseActivity implements SharedPreferences.OnSh
             }
         });
         if(darkTheme){
-            mNavigationView.setBackgroundColor(getResources().getColor(R.color.darkThemePrimaryColor));
+            mNavigationView.setBackgroundColor(getResources().getColor(R.color.darkThemeNavigationBarColor));
         }
     }
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -118,6 +119,12 @@ public class MainActivity extends BaseActivity implements SharedPreferences.OnSh
     public void showChatListView() {
         ChatListFragment chatListFragment=ChatListFragment.newInstance();
         displayFragment(chatListFragment);
+    }
+
+    @Override
+    public void showMultipleAccountView() {
+        MultipleAccountFragment multipleAccountFragment=MultipleAccountFragment.newInstance();
+        displayFragment(multipleAccountFragment);
     }
 
     @Override

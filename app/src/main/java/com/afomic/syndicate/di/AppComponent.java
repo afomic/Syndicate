@@ -7,6 +7,7 @@ import com.afomic.syndicate.ui.main.MainActivity;
 import com.afomic.syndicate.ui.messages.MessageActivity;
 import com.afomic.syndicate.ui.multipleAccount.MultipleAccountFragment;
 import com.afomic.syndicate.ui.profile.ProfileFragment;
+import com.afomic.syndicate.ui.updateProfile.UpdateProfileDialog;
 import com.afomic.syndicate.ui.userDetail.UserDetailActivity;
 import com.afomic.syndicate.ui.userSearch.UserSearchActivity;
 import com.afomic.syndicate.ui.welcome.WelcomeActivity;
@@ -23,6 +24,7 @@ public interface AppComponent {
     void inject(MainActivity activity);
     void inject(ChatListFragment fragment);
     void inject(ProfileFragment fragment);
+    void inject(UpdateProfileDialog dialog);
     void inject(MultipleAccountFragment fragment);
     void inject(UserDetailActivity activity);
     void inject(MessageActivity activity);

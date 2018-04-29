@@ -1,8 +1,8 @@
 package com.afomic.syndicate.ui.userSearch;
 
 import com.afomic.syndicate.base.BasePresenter;
-import com.afomic.syndicate.data.DataSource;
 import com.afomic.syndicate.data.ListDataSourceCallback;
+import com.afomic.syndicate.data.UserDataSource;
 import com.afomic.syndicate.model.User;
 
 import java.util.List;
@@ -11,7 +11,7 @@ import javax.inject.Inject;
 
 public class UserSearchPresenter implements BasePresenter<UserSearchView> {
     @Inject
-    DataSource mDataSource;
+    UserDataSource mDataSource;
 
     private UserSearchView mUserSearchView;
 

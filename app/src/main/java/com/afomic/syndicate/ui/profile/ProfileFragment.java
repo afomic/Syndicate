@@ -5,16 +5,17 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afomic.syndicate.R;
-import com.afomic.syndicate.base.BaseView;
 import com.afomic.syndicate.di.DependencyInjector;
 import com.afomic.syndicate.model.User;
-import com.afomic.syndicate.ui.main.MainPresenter;
 
 import org.w3c.dom.Text;
 
@@ -41,6 +42,7 @@ public class ProfileFragment extends Fragment implements ProfileView {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         DependencyInjector.applicationComponent().inject(this);
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Nullable
@@ -52,6 +54,17 @@ public class ProfileFragment extends Fragment implements ProfileView {
         mProfilePresenter.takeView(this);
         mProfilePresenter.loadData();
         return v;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_account,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

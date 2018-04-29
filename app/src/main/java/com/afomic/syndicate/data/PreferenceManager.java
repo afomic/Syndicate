@@ -15,6 +15,7 @@ public class PreferenceManager {
     private static final String PREF_USER_ID="user_id";
     private static final String PREF_CURRENT_CHAT_ID="chat_id";
     private static  final String PREF_UNIQUE_ID="chat_id";
+    private static final String PREF_HAS_MULTIPLE_ACCOUNT="has_multiple_account";
 
     @Inject
     public PreferenceManager(Context context){
@@ -37,6 +38,16 @@ public class PreferenceManager {
     public String getUniqueId(){
         return mSharedPreferences.getString(PREF_USER_ID,"id");
     }
+    public void setHasMultipleAccount(boolean hasMultipleAccount){
+        SharedPreferences.Editor mEditor=mSharedPreferences.edit();
+        mEditor.putBoolean(PREF_HAS_MULTIPLE_ACCOUNT,hasMultipleAccount);
+        mEditor.apply();
+
+    }
+    public boolean hasMultipleAccount(){
+        return mSharedPreferences.getBoolean(PREF_HAS_MULTIPLE_ACCOUNT,false);
+    }
+
     public void setUserId(String userId){
         SharedPreferences.Editor mEditor=mSharedPreferences.edit();
         mEditor.putString(PREF_USER_ID,userId);

@@ -3,10 +3,11 @@ package com.afomic.syndicate.ui.userDetail;
 import android.content.Intent;
 
 import com.afomic.syndicate.base.BasePresenter;
+import com.afomic.syndicate.data.ChatDataSource;
 import com.afomic.syndicate.data.Constants;
-import com.afomic.syndicate.data.DataSource;
 import com.afomic.syndicate.data.PreferenceManager;
 import com.afomic.syndicate.data.SingleItemDataSourceCallback;
+import com.afomic.syndicate.data.UserDataSource;
 import com.afomic.syndicate.model.Chat;
 import com.afomic.syndicate.model.User;
 
@@ -16,9 +17,10 @@ public class UserDetailPresenter implements BasePresenter<UserDetailView> {
     @Inject
     PreferenceManager mPreferenceManager;
     @Inject
-    DataSource mDataSource;
+    ChatDataSource mDataSource;
     private UserDetailView mUserDetailView;
     private User mCurrentUser;
+    private boolean myAccount=false;
     @Inject
     public UserDetailPresenter(){
 
@@ -35,6 +37,17 @@ public class UserDetailPresenter implements BasePresenter<UserDetailView> {
     }
     public void handleIntent(Intent intent){
         mCurrentUser=intent.getParcelableExtra(Constants.EXTRA_USER);
+        myAccount=intent.getBooleanExtra(Constants.EXTRA_MY_ACCOUNT,false);
+        if(myAccount){
+            mUserDetailView.showEditButtons();
+            mUserDetailView.showSetAccountButton();
+            if(mCurrentUser.getId().equals(mPreferenceManager.getUserId())){
+                mUserDetailView.enableSetAccountButton(false);
+            }
+        }else{
+            mUserDetailView.hideEditButtons();
+            mUserDetailView.hideSetAccountButton();
+        }
         mUserDetailView.showUserDetails(mCurrentUser);
     }
     public void startChat(){

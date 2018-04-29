@@ -8,4 +8,9 @@ public interface UserDetailView extends BaseView {
     void showUserDetails(User user);
     void showMessageView(Chat chat);
     void enableControls(boolean enable);
+    void showEditButtons();
+    void hideEditButtons();
+    void enableSetAccountButton(boolean enable);
+    void showSetAccountButton();
+    void hideSetAccountButton();
 }

@@ -10,10 +10,10 @@ import com.afomic.syndicate.data.PreferenceManager;
 import javax.inject.Inject;
 
 public class MainPresenter implements BasePresenter<MainView> {
+    private MainView mMainView;
+
     @Inject
     PreferenceManager mPreferenceManager;
-
-    private MainView mMainView;
     @Inject
     public MainPresenter(){
 
@@ -37,7 +37,11 @@ public class MainPresenter implements BasePresenter<MainView> {
                 mMainView.showSettingsView();
                 break;
             case R.id.menu_profile:
-                mMainView.showProfileView();
+                if(mPreferenceManager.hasMultipleAccount()){
+                    mMainView.showMultipleAccountView();
+                }else {
+                    mMainView.showProfileView();
+                }
                 break;
         }
     }

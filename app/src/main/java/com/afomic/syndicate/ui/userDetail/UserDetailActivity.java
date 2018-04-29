@@ -96,6 +96,31 @@ public class UserDetailActivity extends BaseActivity implements UserDetailView{
     }
 
     @Override
+    public void showEditButtons() {
+
+    }
+
+    @Override
+    public void hideEditButtons() {
+
+    }
+
+    @Override
+    public void enableSetAccountButton(boolean enable) {
+
+    }
+
+    @Override
+    public void showSetAccountButton() {
+
+    }
+
+    @Override
+    public void hideSetAccountButton() {
+
+    }
+
+    @Override
     public void enableControls(boolean enable) {
         chatButton.setEnabled(enable);
     }

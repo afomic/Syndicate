@@ -3,6 +3,7 @@ package com.afomic.syndicate.ui.welcome;
 import com.afomic.syndicate.base.BasePresenter;
 import com.afomic.syndicate.data.AuthManager;
 import com.afomic.syndicate.data.PreferenceManager;
+import com.afomic.syndicate.data.UserDataSource;
 
 import javax.inject.Inject;
 
@@ -14,6 +15,7 @@ public class WelcomePresenter implements BasePresenter<WelcomeView> {
     private WelcomeView mWelcomeView;
     @Inject
     public WelcomePresenter(){
+        mPreferenceManager.setUniqueId(UserDataSource.getRandomString(16));
     }
     @Override
     public void takeView(WelcomeView view) {
@@ -27,7 +29,7 @@ public class WelcomePresenter implements BasePresenter<WelcomeView> {
     public void showNextActivity(){
         if(!mPreferenceManager.isLoggedIn()){
             mWelcomeView.showLoadingLayout();
-            mAuthManager.signUp(new AuthManager.AuthManagerCallback() {
+            mAuthManager.signUp(mPreferenceManager.getUniqueId(),new AuthManager.AuthManagerCallback() {
                 @Override
                 public void onSuccess() {
                     mWelcomeView.showHomeView();
