@@ -111,7 +111,7 @@ public class MainActivity extends BaseActivity implements SharedPreferences.OnSh
 
     @Override
     public void showProfileView(String userId) {
-        ProfileFragment profileFragment=ProfileFragment.newInstance(userId);
+        ProfileFragment profileFragment=ProfileFragment.newInstance(userId,true);
         displayFragment(profileFragment);
     }
 

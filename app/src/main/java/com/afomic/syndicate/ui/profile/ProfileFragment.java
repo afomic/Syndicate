@@ -1,6 +1,7 @@
 package com.afomic.syndicate.ui.profile;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,13 +12,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afomic.syndicate.R;
+import com.afomic.syndicate.data.Constants;
 import com.afomic.syndicate.di.DependencyInjector;
+import com.afomic.syndicate.model.Chat;
+import com.afomic.syndicate.ui.messages.MessageActivity;
 import com.afomic.syndicate.ui.updateProfile.UpdateProfileDialog;
+import com.afomic.syndicate.ui.userDetail.UserDetailActivity;
 
 
 import javax.inject.Inject;
@@ -38,17 +45,26 @@ public class ProfileFragment extends Fragment implements ProfileView {
     TextView userIdTextView;
     @BindView(R.id.progress_bar)
     ProgressBar mProgressBar;
+    @BindView(R.id.btn_chat)
+    Button chatButton;
+    @BindView(R.id.btn_edit_status)
+    ImageButton statusEditButton;
+    @BindView(R.id.btn_edit_username)
+    ImageButton usernameEditButton;
+    @BindView(R.id.btn_set_user_account)
+    Button setUserAccountButton;
     @Inject
     ProfilePresenter mProfilePresenter;
 
     private static final String BUNDLE_USER_ID="user_id";
+    private static final String BUNDLE_IS_MY_ACCOUNT="myAccount";
     public static int UPDATE_USER_REQUEST_CODE=100;
     private Unbinder mUnbinder;
-    private String userId;
 
-    public static ProfileFragment newInstance(String userId) {
+    public static ProfileFragment newInstance(String userId, boolean myAccount) {
         Bundle args= new Bundle();
         args.putString(BUNDLE_USER_ID,userId);
+        args.putBoolean(BUNDLE_IS_MY_ACCOUNT,myAccount);
         ProfileFragment fragment=new ProfileFragment();;
         fragment.setArguments(args);
         return fragment;
@@ -58,8 +74,10 @@ public class ProfileFragment extends Fragment implements ProfileView {
         DependencyInjector.applicationComponent().inject(this);
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        userId=getArguments().getString(BUNDLE_USER_ID);
+        String userId=getArguments().getString(BUNDLE_USER_ID);
+        Boolean myAccount=getArguments().getBoolean(BUNDLE_IS_MY_ACCOUNT);
         mProfilePresenter.setUserId(userId);
+        mProfilePresenter.setIsMyAccount(myAccount);
     }
 
     @Nullable
@@ -72,7 +90,7 @@ public class ProfileFragment extends Fragment implements ProfileView {
         mProfilePresenter.loadData();
         return v;
     }
-    @OnClick(R.id.btn_edit_display_name)
+    @OnClick(R.id.btn_edit_username)
     public void editDisplayName(){
         mProfilePresenter.handleDisplayNameEdit();
     }
@@ -145,6 +163,54 @@ public class ProfileFragment extends Fragment implements ProfileView {
     @Override
     public void setUpView() {
 
+    }
+    @Override
+    public void hideEditButtons() {
+        statusEditButton.setVisibility(View.GONE);
+        usernameEditButton.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void enableSetAccountButton(boolean enable) {
+        setUserAccountButton.setEnabled(enable);
+        if(!enable){
+            setUserAccountButton.setBackgroundColor(Color.GRAY);
+        }
+    }
+    @Override
+    public void showSetAccountButton() {
+        setUserAccountButton.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideSetAccountButton() {
+        setUserAccountButton.setVisibility(View.GONE);
+    }
+    @OnClick(R.id.btn_set_user_account)
+    public void setUserAccount(){
+        mProfilePresenter.setUserAccount();
+    }
+    @OnClick(R.id.btn_chat)
+    public void createChat(){
+        mProfilePresenter.startChat();
+    }
+
+    @Override
+    public void showEditButtons() {
+        statusEditButton.setVisibility(View.VISIBLE);
+        usernameEditButton.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideChatButton() {
+        chatButton.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showMessageView(Chat chat) {
+        Intent intent=new Intent(getActivity(), MessageActivity.class);
+        intent.putExtra(Constants.EXTRA_CHAT,chat);
+        startActivity(intent);
     }
 
     @Override

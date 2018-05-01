@@ -41,6 +41,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/edt_chat_message"
                     android:layout_weight="1"
+                    android:textCursorDrawable="@null"
                     android:background="@android:color/transparent"
                     android:hint="@string/chat_entry_title"
                     android:inputType="textCapSentences|textMultiLine"

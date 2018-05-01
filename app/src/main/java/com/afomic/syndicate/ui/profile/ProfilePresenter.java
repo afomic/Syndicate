@@ -5,10 +5,12 @@ import android.view.MenuItem;
 
 import com.afomic.syndicate.R;
 import com.afomic.syndicate.base.BasePresenter;
+import com.afomic.syndicate.data.ChatDataSource;
 import com.afomic.syndicate.data.Constants;
 import com.afomic.syndicate.data.PreferenceManager;
 import com.afomic.syndicate.data.SingleItemDataSourceCallback;
 import com.afomic.syndicate.data.UserDataSource;
+import com.afomic.syndicate.model.Chat;
 import com.afomic.syndicate.model.User;
 
 import javax.inject.Inject;
@@ -17,11 +19,14 @@ public class ProfilePresenter implements BasePresenter<ProfileView> {
     @Inject
     UserDataSource mDataSource;
     @Inject
+    ChatDataSource mChatDataSource;
+    @Inject
     PreferenceManager mPreferenceManager;
 
     private User mUser;
     private ProfileView mProfileView;
     private String userId;
+    private boolean myAccount;
 
     @Inject
     public ProfilePresenter(){
@@ -31,6 +36,10 @@ public class ProfilePresenter implements BasePresenter<ProfileView> {
     public void takeView(ProfileView view) {
         mProfileView=view;
         mProfileView.setUpView();
+        displayView();
+    }
+    public void setIsMyAccount(boolean myAccount){
+        this.myAccount=myAccount;
     }
     public void setUserId(String userId){
         this.userId=userId;
@@ -55,6 +64,27 @@ public class ProfilePresenter implements BasePresenter<ProfileView> {
 
             }
         });
+    }
+    public void startChat(){
+        mProfileView.showProgressBar();
+        mChatDataSource.startChat(mPreferenceManager.getUserId(),
+                userId, new SingleItemDataSourceCallback<Chat>() {
+                    @Override
+                    public void onSuccess(Chat response) {
+                        mProfileView.hideProgressBar();
+                        mProfileView.showMessageView(response);
+                    }
+
+                    @Override
+                    public void onFailure(String message) {
+                        mProfileView.showMessage(message);
+                    }
+
+                    @Override
+                    public void hasChildren(boolean hasChild) {
+
+                    }
+                });
     }
     public void handleIntent(Intent intent){
         String newValue=intent.getStringExtra(Constants.EXTRA_NEW_VALUE);
@@ -98,5 +128,24 @@ public class ProfilePresenter implements BasePresenter<ProfileView> {
                 }
             });
         }
+
+    }
+    public void displayView(){
+        if(myAccount){
+            mProfileView.showEditButtons();
+            mProfileView.showSetAccountButton();
+            mProfileView.hideChatButton();
+            if(userId.equals(mPreferenceManager.getUserId())){
+                mProfileView.enableSetAccountButton(false);
+            }
+        }else{
+            mProfileView.hideEditButtons();
+            mProfileView.hideSetAccountButton();
+        }
+    }
+    public void setUserAccount(){
+        mProfileView.enableSetAccountButton(false);
+        mPreferenceManager.setUserId(userId);
+        mProfileView.showMessage("Account uccessfully Switched");
     }
 }
