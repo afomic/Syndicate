@@ -41,6 +41,7 @@ public class UserDetailPresenter implements BasePresenter<UserDetailView> {
         if(myAccount){
             mUserDetailView.showEditButtons();
             mUserDetailView.showSetAccountButton();
+            mUserDetailView.hideChatButton();
             if(mCurrentUser.getId().equals(mPreferenceManager.getUserId())){
                 mUserDetailView.enableSetAccountButton(false);
             }
@@ -48,7 +49,14 @@ public class UserDetailPresenter implements BasePresenter<UserDetailView> {
             mUserDetailView.hideEditButtons();
             mUserDetailView.hideSetAccountButton();
         }
-        mUserDetailView.showUserDetails(mCurrentUser);
+        mUserDetailView.setStatus(mCurrentUser.getStatus());
+        mUserDetailView.setUserId(mCurrentUser.getId());
+        mUserDetailView.setUsername(mCurrentUser.getUsername());
+    }
+    public void setUserAccount(){
+        mUserDetailView.enableSetAccountButton(false);
+        mPreferenceManager.setUserId(mCurrentUser.getId());
+        mUserDetailView.showMessage("Account Successfully Switched");
     }
     public void startChat(){
         mUserDetailView.showProgressBar();

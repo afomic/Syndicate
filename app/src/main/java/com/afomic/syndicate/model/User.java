@@ -7,6 +7,7 @@ public class User implements Parcelable{
     private String id;
     private String username;
     private String status;
+    private String uniqueId;
     private long timeCreated;
     private String pictureUrl;
     public User(){
@@ -19,6 +20,7 @@ public class User implements Parcelable{
         status = in.readString();
         timeCreated = in.readLong();
         pictureUrl = in.readString();
+        uniqueId = in.readString();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -45,6 +47,7 @@ public class User implements Parcelable{
         dest.writeString(status);
         dest.writeLong(timeCreated);
         dest.writeString(pictureUrl);
+        dest.writeString(uniqueId);
     }
 
     public String getId() {
@@ -85,5 +88,13 @@ public class User implements Parcelable{
 
     public void setPictureUrl(String pictureUrl) {
         this.pictureUrl = pictureUrl;
+    }
+
+    public String getUniqueId() {
+        return uniqueId;
+    }
+
+    public void setUniqueId(String uniqueId) {
+        this.uniqueId = uniqueId;
     }
 }

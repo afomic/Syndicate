@@ -50,7 +50,6 @@ public class NotificationReceiver extends BroadcastReceiver {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         User user=dataSnapshot.getValue(User.class);
                         Message message=intent.getParcelableExtra(Constants.EXTRA_MESSAGE);
-                        PreferenceManager preferenceManager=new PreferenceManager(context);
                         Intent sentIntent=new Intent(context, MessageActivity.class);
                         sentIntent.putExtra(Constants.EXTRA_CHAT,chat);
                         sentIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

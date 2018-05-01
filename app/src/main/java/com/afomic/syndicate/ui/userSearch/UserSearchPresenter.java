@@ -17,7 +17,6 @@ public class UserSearchPresenter implements BasePresenter<UserSearchView> {
 
     @Inject
     public UserSearchPresenter(){
-
     }
     @Override
     public void takeView(UserSearchView view) {

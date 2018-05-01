@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -72,12 +73,20 @@ public class MultipleAccountFragment extends Fragment  implements MultipleAccoun
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()==R.id.menu_add_account){
+            mMultipleAccountPresenter.addNewAccount();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void setUpView() {
         mUsers=new ArrayList<>();
         mUserAdapter=new UserAdapter(getContext(),mUsers,this);
         accountRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         accountRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
-                DividerItemDecoration.HORIZONTAL));
+                DividerItemDecoration.VERTICAL));
         accountRecyclerView.setAdapter(mUserAdapter);
 
 

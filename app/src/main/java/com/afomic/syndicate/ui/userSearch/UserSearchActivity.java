@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -60,6 +61,8 @@ public class UserSearchActivity extends BaseActivity implements UserSearchView,U
         mUsers=new ArrayList<>();
         userRecyclerView.setLayoutManager(new LinearLayoutManager(UserSearchActivity.this));
         mUserAdapter=new UserAdapter(UserSearchActivity.this,mUsers,this);
+        userRecyclerView.addItemDecoration(new DividerItemDecoration(UserSearchActivity.this,
+                DividerItemDecoration.VERTICAL));
         userRecyclerView.setAdapter(mUserAdapter);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

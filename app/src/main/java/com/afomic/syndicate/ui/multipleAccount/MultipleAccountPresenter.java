@@ -1,5 +1,7 @@
 package com.afomic.syndicate.ui.multipleAccount;
 
+import android.util.Log;
+
 import com.afomic.syndicate.base.BasePresenter;
 import com.afomic.syndicate.data.ListDataSourceCallback;
 import com.afomic.syndicate.data.PreferenceManager;
@@ -47,6 +49,7 @@ public class MultipleAccountPresenter implements BasePresenter<MultipleAccountVi
     }
     public void addNewAccount(){
         mMultipleAccountView.showProgressBar();
+        Log.e("unique","unique id:"+mPreferenceManager.getUniqueId());
         mDataSource.saveUser(mPreferenceManager.getUniqueId(), new SingleItemDataSourceCallback<Boolean>() {
             @Override
             public void onSuccess(Boolean response) {

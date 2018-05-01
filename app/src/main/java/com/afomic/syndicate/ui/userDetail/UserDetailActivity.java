@@ -1,11 +1,13 @@
 package com.afomic.syndicate.ui.userDetail;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -35,6 +37,14 @@ public class UserDetailActivity extends BaseActivity implements UserDetailView{
     Button chatButton;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+    @BindView(R.id.btn_edit_status)
+    ImageButton statusEditButton;
+    @BindView(R.id.btn_edit_username)
+    ImageButton usernameEditButton;
+    @BindView(R.id.btn_set_user_account)
+    Button setUserAccountButton;
+    @BindView(R.id.tv_user_id)
+    TextView userIdTextView;
     @Inject
     UserDetailPresenter mUserDetailPresenter;
     @Override
@@ -77,12 +87,6 @@ public class UserDetailActivity extends BaseActivity implements UserDetailView{
         }
     }
 
-    @Override
-    public void showUserDetails(User user) {
-        statusTextView.setText(user.getStatus());
-        usernameTextView.setText(user.getUsername());
-    }
-
     @OnClick(R.id.btn_chat)
     public void createChat(){
         mUserDetailPresenter.startChat();
@@ -97,27 +101,64 @@ public class UserDetailActivity extends BaseActivity implements UserDetailView{
 
     @Override
     public void showEditButtons() {
-
+        statusEditButton.setVisibility(View.VISIBLE);
+        usernameEditButton.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideEditButtons() {
-
+        statusEditButton.setVisibility(View.GONE);
+        usernameEditButton.setVisibility(View.GONE);
     }
 
     @Override
     public void enableSetAccountButton(boolean enable) {
-
+        setUserAccountButton.setEnabled(enable);
+        if(!enable){
+            setUserAccountButton.setBackgroundColor(Color.GRAY);
+        }
     }
 
     @Override
     public void showSetAccountButton() {
-
+        setUserAccountButton.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideSetAccountButton() {
+        setUserAccountButton.setVisibility(View.GONE);
+    }
+    @OnClick(R.id.btn_set_user_account)
+    public void setUserAccount(){
+        mUserDetailPresenter.setUserAccount();
+    }
+    @OnClick(R.id.btn_edit_username)
+    public void changeUsername(){
 
+    }
+    @OnClick(R.id.btn_edit_status)
+    public void editStatus(){
+
+    }
+
+    @Override
+    public void setUserId(String userId) {
+        userIdTextView.setText(userId);
+    }
+
+    @Override
+    public void setStatus(String status) {
+        statusTextView.setText(status);
+    }
+
+    @Override
+    public void hideChatButton() {
+        chatButton.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setUsername(String username) {
+        usernameTextView.setText(username);
     }
 
     @Override

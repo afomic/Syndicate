@@ -33,6 +33,7 @@ public class AuthManager {
                         user.setId(id);
                         String username="User-"+getRandomString();
                         user.setUsername(username);
+                        user.setUniqueId(mPreferenceManager.getUniqueId());
                         user.setStatus("I am a new User");
                         user.setTimeCreated(System.currentTimeMillis());
                         saveUser(user,authManagerCallback);
@@ -54,7 +55,6 @@ public class AuthManager {
     private void saveUser(final User user, final AuthManagerCallback callback){
         FirebaseDatabase.getInstance()
                 .getReference(Constants.USER_REF)
-                .child(mPreferenceManager.getUniqueId())
                 .child(user.getId())
                 .setValue(user)
                 .addOnFailureListener(new OnFailureListener() {

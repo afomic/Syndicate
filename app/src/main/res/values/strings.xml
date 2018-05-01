@@ -18,4 +18,7 @@
     <string name="btn_chat_title">Chat Up</string>
     <string name="user_search_empty_message">Cannot Find User</string>
     <string name="buttion_set_user_title">set user account</string>
+    <string name="username_label">Username</string>
+    <string name="at_code">\@</string>
+    <string name="user_id_label">User ID</string>
 </resources>

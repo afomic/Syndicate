@@ -14,7 +14,7 @@ public class PreferenceManager {
     private static final String PREF_USER_IS_LOGGED_IN="has_account";
     private static final String PREF_USER_ID="user_id";
     private static final String PREF_CURRENT_CHAT_ID="chat_id";
-    private static  final String PREF_UNIQUE_ID="chat_id";
+    private static  final String PREF_UNIQUE_ID="unique_id";
     private static final String PREF_HAS_MULTIPLE_ACCOUNT="has_multiple_account";
 
     @Inject

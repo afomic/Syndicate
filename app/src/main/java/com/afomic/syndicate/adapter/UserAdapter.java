@@ -36,7 +36,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         User user=mUsers.get(position);
         GlideApp.with(mContext)
                 .load(user.getPictureUrl())
-                .placeholder(R.drawable.ic_person)
+                .placeholder(R.drawable.avater)
                 .into(holder.friendImageView);
         holder.friendStatusTextView.setText(user.getStatus());
         String name=String.format(user.getUsername());

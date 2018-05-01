@@ -28,7 +28,6 @@ public class UserDataSource {
     }
     public void getUser(String userId, final SingleItemDataSourceCallback<User> callback){
         mFirebaseDatabase.getReference(Constants.USER_REF)
-                .child(mPreferenceManager.getUniqueId())
                 .child(userId)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -45,7 +44,6 @@ public class UserDataSource {
     }
     public void setUserDetail(String userId, String key, String value, final SingleItemDataSourceCallback<Boolean> callback){
         mFirebaseDatabase.getReference(Constants.USER_REF)
-                .child(mPreferenceManager.getUniqueId())
                 .child(userId)
                 .child(key)
                 .setValue(value)
@@ -61,13 +59,13 @@ public class UserDataSource {
             }
         });
     }
-    public void saveUser(String AccountUniqueId, final SingleItemDataSourceCallback<Boolean> callback){
+    public void saveUser(String accountUniqueId, final SingleItemDataSourceCallback<Boolean> callback){
         User user=new User();
-        DatabaseReference userDataBaseRef=mFirebaseDatabase.getReference(Constants.USER_REF)
-                .child(AccountUniqueId);
+        DatabaseReference userDataBaseRef=mFirebaseDatabase.getReference(Constants.USER_REF);
         String userId=userDataBaseRef.push().getKey();
         user.setId(userId);
-        String username="User-"+getRandomString(6);
+        user.setUniqueId(accountUniqueId);
+        String username="user-"+getRandomString(6);
         user.setUsername(username);
         user.setTimeCreated(System.currentTimeMillis());
         user.setStatus("I am a new User");
@@ -89,7 +87,8 @@ public class UserDataSource {
     }
     public void getUserAccounts(String uniqueId, final ListDataSourceCallback<User> callback){
         mFirebaseDatabase.getReference(Constants.USER_REF)
-                .child(uniqueId)
+                .orderByChild("uniqueId")
+                .equalTo(uniqueId)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -110,7 +109,8 @@ public class UserDataSource {
     }
     public void setHasMultipleAccount(String uniqueId){
         mFirebaseDatabase.getReference(Constants.USER_REF)
-                .child(uniqueId)
+                .orderByChild("uniqueId")
+                .equalTo(uniqueId)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
