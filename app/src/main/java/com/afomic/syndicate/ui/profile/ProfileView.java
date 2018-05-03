@@ -16,4 +16,5 @@ public interface ProfileView extends BaseView {
     void showSetAccountButton();
     void hideSetAccountButton();
     void showMessageView(Chat chat);
+    void startNotificationService();
 }

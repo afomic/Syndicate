@@ -112,6 +112,7 @@ public class MessagePresenter implements BasePresenter<MessageView> {
         item.setTime(System.currentTimeMillis());
         item.setSenderId(mPreferenceManager.getUserId());
         item.setMessage(message);
+        item.setRead(false);
         String recipientId=mPreferenceManager.getUserId()
                 .equals(currentChat.getUserOne())?currentChat.getUserTwo():currentChat.getUserOne();
         mDataSource.sendMessage(item,mPreferenceManager.getUserId(),recipientId, new SingleItemDataSourceCallback<Boolean>() {

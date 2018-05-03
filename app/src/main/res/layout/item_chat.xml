@@ -51,8 +51,11 @@
                 android:padding="@dimen/content_text_padding"
                 android:layout_height="wrap_content"/>
             <TextView
-                tools:text="13"
-                android:padding="@dimen/unread_message_count_text_padding"
+                tools:text="31"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:paddingBottom="3dp"
+                android:paddingTop="3dp"
                 android:gravity="center"
                 android:layout_marginRight="@dimen/unread_message_count_margin_right"
                 android:textColor="@color/colorWhite"

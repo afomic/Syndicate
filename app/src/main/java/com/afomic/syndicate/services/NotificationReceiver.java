@@ -9,6 +9,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.NotificationManagerCompat;
+import android.util.Log;
 
 import com.afomic.syndicate.R;
 import com.afomic.syndicate.data.Constants;
@@ -35,6 +36,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         PreferenceManager preferenceManager=new PreferenceManager(context);
         //the new message is for the current chat
         final Chat chat=intent.getParcelableExtra(Constants.EXTRA_CHAT);
+        Log.e("onRecieve","i am called");
         if(preferenceManager.getCurrentChatId().equals(chat.getId())){
             return;
         }

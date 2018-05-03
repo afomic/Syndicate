@@ -107,24 +107,6 @@ public class UserDataSource {
                     }
                 });
     }
-    public void setHasMultipleAccount(String uniqueId){
-        mFirebaseDatabase.getReference(Constants.USER_REF)
-                .orderByChild("uniqueId")
-                .equalTo(uniqueId)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.getChildrenCount()>1){
-                            mPreferenceManager.setHasMultipleAccount(true);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.e("HasMultipleAccount","HasMultipleAccount: Setting value failed: "+databaseError.getMessage());
-                    }
-                });
-    }
     public void searchUser(String query, final ListDataSourceCallback<User> callback){
         mFirebaseDatabase.getReference(Constants.USER_REF)
                 .orderByChild("username")

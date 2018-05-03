@@ -1,5 +1,6 @@
 package com.afomic.syndicate.ui.profile;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.afomic.syndicate.R;
 import com.afomic.syndicate.data.Constants;
 import com.afomic.syndicate.di.DependencyInjector;
 import com.afomic.syndicate.model.Chat;
+import com.afomic.syndicate.services.FirebaseChatListener;
 import com.afomic.syndicate.ui.messages.MessageActivity;
 import com.afomic.syndicate.ui.updateProfile.UpdateProfileDialog;
 import com.afomic.syndicate.ui.userDetail.UserDetailActivity;
@@ -69,6 +71,17 @@ public class ProfileFragment extends Fragment implements ProfileView {
         fragment.setArguments(args);
         return fragment;
     }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         DependencyInjector.applicationComponent().inject(this);
@@ -102,7 +115,7 @@ public class ProfileFragment extends Fragment implements ProfileView {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_account,menu);
+        mProfilePresenter.inflateMenu(menu,inflater);
     }
 
     @Override
@@ -220,4 +233,12 @@ public class ProfileFragment extends Fragment implements ProfileView {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+    @Override
+    public void startNotificationService() {
+        Intent intent=new Intent(getActivity(),FirebaseChatListener.class);
+        getActivity().startService(intent);
+    }
+
+
 }

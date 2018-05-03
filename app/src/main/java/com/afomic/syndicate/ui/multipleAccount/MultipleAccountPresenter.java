@@ -56,7 +56,6 @@ public class MultipleAccountPresenter implements BasePresenter<MultipleAccountVi
                 mMultipleAccountView.hideProgressBar();
                 if(response){
                     mMultipleAccountView.showMessage("New Account created");
-                    mDataSource.setHasMultipleAccount(mPreferenceManager.getUniqueId());
                 }
             }
 

@@ -1,6 +1,8 @@
 package com.afomic.syndicate.ui.profile;
 
 import android.content.Intent;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.afomic.syndicate.R;
@@ -113,7 +115,6 @@ public class ProfilePresenter implements BasePresenter<ProfileView> {
                 public void onSuccess(Boolean response) {
                     mProfileView.hideProgressBar();
                     mProfileView.showMessage("New Account created");
-                    mDataSource.setHasMultipleAccount(mPreferenceManager.getUniqueId());
                 }
 
                 @Override
@@ -146,6 +147,12 @@ public class ProfilePresenter implements BasePresenter<ProfileView> {
     public void setUserAccount(){
         mProfileView.enableSetAccountButton(false);
         mPreferenceManager.setUserId(userId);
-        mProfileView.showMessage("Account uccessfully Switched");
+        mProfileView.startNotificationService();
+        mProfileView.showMessage("Account Successfully Switched");
+    }
+    public void inflateMenu(Menu menu, MenuInflater inflater){
+        if(myAccount&&!mPreferenceManager.hasMultipleAccount()){
+            inflater.inflate(R.menu.menu_account,menu);
+        }
     }
 }

@@ -27,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class UserDetailActivity extends BaseActivity implements UserDetailView{
+public class UserDetailActivity extends BaseActivity implements UserDetailView {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -76,4 +76,5 @@ public class UserDetailActivity extends BaseActivity implements UserDetailView{
     public void hideProgressBar() {
 
     }
+
 }

@@ -62,6 +62,7 @@ public class MessageActivity extends BaseActivity implements MessageView {
         messageRecyclerView.setAdapter(mMessageAdapter);
         if(darkTheme){
             messageEditText.setTextColor(Color.BLACK);
+            messageEditText.setHintTextColor(Color.BLACK);
         }
     }
 

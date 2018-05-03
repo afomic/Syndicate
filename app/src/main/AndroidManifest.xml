@@ -21,6 +21,11 @@
         <activity android:name=".ui.userDetail.UserDetailActivity"/>
         <activity android:name=".ui.messages.MessageActivity"/>
         <activity android:name=".ui.userSearch.UserSearchActivity"/>
+        <service android:name=".services.FirebaseChatListener"
+            android:enabled="true"/>
+        <receiver android:name=".services.NotificationReceiver"
+            android:enabled="true"/>
     </application>
+
 
 </manifest>

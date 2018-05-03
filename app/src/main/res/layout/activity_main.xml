@@ -24,12 +24,24 @@
             android:layout_height="match_parent"/>
     </android.support.design.widget.CoordinatorLayout>
 
-    <android.support.design.widget.NavigationView
-        android:layout_width="wrap_content"
-        android:id="@+id/navigation_view"
-        app:headerLayout="@layout/nav_header"
-        app:menu="@menu/nav_menu"
+    <LinearLayout
         android:layout_gravity="start"
-        android:layout_height="match_parent"/>
+        android:id="@+id/navigation_layout"
+        android:orientation="vertical"
+        android:background="@color/colorWhite"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include layout="@layout/nav_header"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:text="Add New Account"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="200dp"
+            android:id="@+id/btn_add_account"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>

@@ -87,10 +87,8 @@ public class ChatAdapter  extends RecyclerView.Adapter<ChatAdapter.ChatHolder>{
         holder.lastUpdateTextView.setText(lastUpdateTime);
 
         FirebaseDatabase.getInstance()
-                .getReference(Constants.CHATS_REF)
-                .child(mPreferenceManager.getUserId())
+                .getReference(Constants.MESSAGES_REF)
                 .child(chatItem.getId())
-                .child(Constants.MESSAGES_REF)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
